@@ -2,6 +2,8 @@
 
 
 
+<g:hiddenField name="quizzId" value="${quizzId}"/>
+
 <div class="fieldcontain ${hasErrors(bean: questionInstance, field: 'text', 'error')} ">
 	<label for="text">
 		<g:message code="question.text.label" default="Text" />
