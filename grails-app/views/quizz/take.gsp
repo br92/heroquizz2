@@ -9,45 +9,26 @@
 
 <body>
 
-<div>
-  <h1>Question</h1>
-
-  <g:form>
-    <ol class="property-list question">
-
-      <li class="fieldcontain">
-        <g:fieldValue bean="${questionInstance}" field="text"/>
-
-      </li>
+<div class="form-horizontal">
 
 
-      <g:if test="${questionInstance?.answers}">
-        <li class="fieldcontain">
-          <span id="answers-label" class="property-label"><g:message code="question.answers.label"
-                                                                     default="Answers"/></span>
 
+  <form class="form-horizontal">
+    <fieldset>
+      <legend><g:fieldValue bean="${questionInstance}" field="text"/></legend>
+      <div class="control-group">
+
+        <div class="controls">
+          <ul>
           <g:each in="${questionInstance.answers}" var="a">
-            <span class="property-value" aria-labelledby="answers-label"><g:link action="answer"
-                                                                                 id="${a.id}">"${a?.text?.encodeAsHTML()}" => ${a?.pointsNumber}</g:link></span>
+            <li><g:link action="answer" id="${a.id}">${a?.text?.encodeAsHTML()}</g:link></li>
           </g:each>
-
-        </li>
-      </g:if>
-
-    </ol>
-
-    <fieldset class="buttons">
-      <g:hiddenField name="quizzId" value="${quizzInstance?.id}"/>
-
-      <g:link class="edit" action="answer" id="${questionInstance?.id}"><g:message code="default.button.edit.label"
-                                                                                   default="Edit"/></g:link>
-
-
-      <g:actionSubmit class="delete" action="delete"
-                      value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                      onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
+          </ul>
+        </div>
+      </div>
     </fieldset>
-  </g:form>
+  </form>
+
 </div>
 </body>
 </html>
