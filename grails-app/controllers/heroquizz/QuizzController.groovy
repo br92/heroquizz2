@@ -100,4 +100,50 @@ class QuizzController {
       redirect(action: "show", id: params.id)
     }
   }
+
+  def take() {
+
+    Quizz theQuizz
+
+    if (!session.currentQuizzId) {
+      session.currentQuizzId = params.id
+      session.currentScore = 0
+      theQuizz = Quizz.get(session.currentQuizzId as Long)
+      session.questionsOk = []
+
+
+
+    } else {
+      theQuizz = Quizz.get(session.currentQuizzId as Long)
+      [quizzInstance: theQuizz, questionInstance: Question.get(session.currentQuestionId as Long)]
+    }
+
+    def questionList = theQuizz.questions as List
+    def nextQuestionId = questionList*.id.find { !session.questionsOk.contains(it) }
+
+    if (nextQuestionId)
+      session.currentQuestionId = nextQuestionId
+    else
+      redirect(action: 'passed')
+
+    [quizzInstance: theQuizz, questionInstance: Question.get(session.currentQuestionId as Long)]
+  }
+
+  def passed() {
+
+  }
+
+  def answer() {
+    Question currentQuestion = Question.get(session.currentQuestionId as Long)
+
+    def answerLinked = currentQuestion.answers.find { it.id == params.id as Long}
+
+    if (answerLinked) {
+      session.currentScore = (session.currentScore as Long) + answerLinked.pointsNumber
+      session.questionsOk << currentQuestion.id
+    }
+
+    redirect(action: 'take')
+
+  }
 }
