@@ -91,3 +91,6 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 }
+
+facebook.applicationSecret='3a462b80bdcfe155f3315582429d9c0a'
+facebook.applicationId='304241722970988'
