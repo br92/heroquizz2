@@ -12,7 +12,6 @@
 			<p>Application démonstratrice Grails Heroku</p>
 			<p>
 
-        
       <fb:login-button scope="email,publish_stream" onlogin="facebookLogin();" size="large">
         <g:message code="auth.login.facebook" default="Connect with Facebook"/>
       </fb:login-button></p>

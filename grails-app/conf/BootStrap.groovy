@@ -6,7 +6,7 @@ class BootStrap {
 
   def init = { servletContext ->
 
-    def quizz1 = new Quizz(name: 'Culture générale', description: 'Tous sujets').save()
+    def quizz1 = new Quizz(name: 'Culture générale', description: 'Tous sujets', published: true).save()
 
     def question1 = new Question(text: "Quelle est la couleur du cheval blanc d'Henri IV ?", quizz: quizz1).save()
     def reponse1Q1 = new Answer(text: 'Bleu', pointsNumber: -1, question: question1).save()

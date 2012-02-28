@@ -2,33 +2,40 @@
 <!doctype html>
 <html>
 <head>
-  <meta name="layout" content="main">
+  <meta name="layout" content="canvas">
   <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}"/>
   <title><g:message code="default.show.label" args="[entityName]"/></title>
 </head>
 
 <body>
 
-<div class="form-horizontal">
+<div class="hero-unit">
+  <p><g:fieldValue bean="${questionInstance}" field="text"/></p>
 
-
-
-  <form class="form-horizontal">
+  <g:form action="take">
     <fieldset>
-      <legend><g:fieldValue bean="${questionInstance}" field="text"/></legend>
-      <div class="control-group">
+      <div class="clearfix">
+        <div class="input">
+          <ul class="inputs-list">
+            <g:each in="${questionInstance.answers}" var="a">
+              <li>
+                <label>
+                  <g:checkBox name="answer" value="${a.id}" checked="${false}"/>
+                  <span>${a?.text?.encodeAsHTML()}</span>
+                </label>
+              </li>
+            </g:each>
 
-        <div class="controls">
-          <ul>
-          <g:each in="${questionInstance.answers}" var="a">
-            <li><g:link action="answer" id="${a.id}">${a?.text?.encodeAsHTML()}</g:link></li>
-          </g:each>
           </ul>
         </div>
       </div>
     </fieldset>
-  </form>
 
+    <div class="actions">
+      <g:submitButton name="submit" value="Valider" class="btn primary"/>
+    </div>
+  </g:form>
 </div>
+
 </body>
 </html>

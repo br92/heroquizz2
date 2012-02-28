@@ -4,6 +4,8 @@ class Quizz {
 
   String name
   String description
+  boolean published
+
   static hasMany = [questions: Question]
 
   static constraints = {

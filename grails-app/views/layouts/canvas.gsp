@@ -11,34 +11,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <g:layoutHead/>
 
-  <r:require module="bootstrap-css"/>
+  <r:require module="fb"/>
 
   <style type="text/css" media="screen">
-  body {
+  section {
     padding-top: 60px;
   }
-
-    footer {
-      text-align: center;
-
-    }
-
+  footer {
+    text-align: center;
+  }
   </style>
+
   <r:layoutResources/>
 </head>
 
 <body>
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <g:link class="brand" controller="home">HeroQuizz</g:link>
+<div class="container canvas">
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="container canvas">
+      <a class="brand" href="#">HeroQuizz</a>
     </div>
   </div>
 </div>
 
-<div class="container">
+<section>
+
   <g:layoutBody/>
-  <hr>
+</section>
   <footer><p>© <g:link url="http://blog.xebia.fr">XebiaFr</g:link> 2012 -
     Powered by <g:link url="http://www.heroku.com">Heroku</g:link></p></footer>
 </div>
