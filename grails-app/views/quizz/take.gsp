@@ -32,7 +32,7 @@
     </fieldset>
 
     <div class="actions">
-      <g:submitButton name="submit" value="Valider" class="btn primary"/>
+      <g:submitButton name="submit" value="Valider" class="btn primary" />
     </div>
   </g:form>
 </div>
