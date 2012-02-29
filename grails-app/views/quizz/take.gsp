@@ -14,6 +14,7 @@
 
   <g:form action="take">
     <fieldset>
+      <g:hiddenField name="currentQuestionId" value="${questionInstance?.id}"/>
       <div class="clearfix">
         <div class="input">
           <ul class="inputs-list">

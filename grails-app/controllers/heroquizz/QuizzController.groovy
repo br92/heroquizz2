@@ -102,7 +102,6 @@ class QuizzController {
   }
 
   def take() {
-
     Quizz theQuizz
 
     if (!session.currentQuizzId) {
@@ -110,16 +109,19 @@ class QuizzController {
       session.currentScore = 0
       theQuizz = Quizz.get(session.currentQuizzId as Long)
       session.questionsOk = []
-
-
-
     } else {
       theQuizz = Quizz.get(session.currentQuizzId as Long)
-      [quizzInstance: theQuizz, questionInstance: Question.get(session.currentQuestionId as Long)]
+    }
+    
+    if (!theQuizz) {
+      render(view: 'error-canvas')
     }
 
     def questionList = theQuizz.questions as List
+    log.debug ("Questions : ${questionList}")
+    log.debug ("Questions ok: ${session.questionsOk}")
     def nextQuestionId = questionList*.id.find { !session.questionsOk.contains(it) }
+    log.debug ("Next question id : ${nextQuestionId}")
 
     if (nextQuestionId)
       session.currentQuestionId = nextQuestionId
@@ -134,9 +136,16 @@ class QuizzController {
   }
 
   def answer() {
-    Question currentQuestion = Question.get(session.currentQuestionId as Long)
+
+    Question currentQuestion = Question.get(params.currentQuestionId as Long)
 
     def answerLinked = currentQuestion.answers.find { it.id == params.id as Long}
+    if (params.answers.size()) {
+
+    } else {
+
+    }
+
 
     if (answerLinked) {
       session.currentScore = (session.currentScore as Long) + answerLinked.pointsNumber
@@ -144,6 +153,5 @@ class QuizzController {
     }
 
     redirect(action: 'take')
-
   }
 }

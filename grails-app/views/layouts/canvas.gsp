@@ -17,6 +17,7 @@
   section {
     padding-top: 60px;
   }
+
   footer {
     text-align: center;
   }
@@ -28,20 +29,10 @@
 <body>
 <div class="container canvas">
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="container canvas">
-      <a class="brand" href="#">HeroQuizz</a>
-    </div>
-  </div>
-</div>
+  <section>
+    <g:layoutBody/>
+  </section>
 
-<section>
-
-  <g:layoutBody/>
-</section>
-  <footer><p>© <g:link url="http://blog.xebia.fr">XebiaFr</g:link> 2012 -
-    Powered by <g:link url="http://www.heroku.com">Heroku</g:link></p></footer>
 </div>
 
 
