@@ -12,9 +12,7 @@
 			<p>Application démonstratrice Grails Heroku</p>
 			<p>
 
-      <fb:login-button scope="email,publish_stream" onlogin="facebookLogin();" size="large">
-        <g:message code="auth.login.facebook" default="Connect with Facebook"/>
-      </fb:login-button></p>
+
 
 			<div id="controller-list" role="navigation">
 				<h2>Available Controllers:</h2>
@@ -25,7 +23,8 @@
 				</ul>
 			</div>
 
-      <fbg:resources/>
+      <facebookAuth:connect permissions="email,publish_stream"/>
+
 		</div>
 	</body>
 </html>

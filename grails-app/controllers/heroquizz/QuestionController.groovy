@@ -19,7 +19,8 @@ class QuestionController {
     if (!params.id) {
       log.warn("Can't create question not linked to a given quizz id")
     }
-    [questionInstance: new Question(params), quizzId: params.id]
+
+    [questionInstance: new Question(params), forQuizz: Quizz.get(params.id as Long)]
   }
 
   def save() {

@@ -9,10 +9,26 @@
 
 <body>
 
+<r:require module="jwplayer"/>
+
 <div class="hero-unit">
+  <div style=" width: 100%">
+  <div id='mediaplayer' style="text-align: center;"></div>
+  </div>
+  <r:script>
+    jwplayer('mediaplayer').setup({
+      'flashplayer': '${resource(dir: 'flash', file: 'player.swf')}',
+      'id': 'playerID',
+      'autostart': true,
+      'width': '480',
+      'height': '270',
+      'file': 'https://s3-eu-west-1.amazonaws.com/xebia-video/2011-10-elastic-search-vs-solr.mp4'
+    });
+  </r:script>
+
   <p><g:fieldValue bean="${questionInstance}" field="text"/></p>
 
-  <g:form action="take">
+  <g:form action="answer">
     <fieldset>
       <g:hiddenField name="currentQuestionId" value="${questionInstance?.id}"/>
       <div class="clearfix">
@@ -21,7 +37,7 @@
             <g:each in="${questionInstance.answers}" var="a">
               <li>
                 <label>
-                  <g:checkBox name="answer" value="${a.id}" checked="${false}"/>
+                  <g:checkBox name="answers" value="${a.id}" checked="${false}"/>
                   <span>${a?.text?.encodeAsHTML()}</span>
                 </label>
               </li>

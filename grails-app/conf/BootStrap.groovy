@@ -1,6 +1,9 @@
 import heroquizz.Question
 import heroquizz.Answer
 import heroquizz.Quizz
+import heroquizz.Role
+import heroquizz.User
+import heroquizz.UserRole
 
 class BootStrap {
 
@@ -24,6 +27,13 @@ class BootStrap {
     def reponse3Q3 = new Answer(text: '1812', pointsNumber: -1, question: question3).save()
 
 
+    def roleFb = new Role(authority: 'ROLE_FACEBOOK').save()
+    def roleAdmin = new Role(authority: 'ROLE_ADMIN').save()
+
+    def admin = new User(username: 'admin', password: 'admin', enabled: true).save()
+
+    UserRole.create(admin, roleAdmin, true)
+    UserRole.create(admin, roleFb, true)
   }
   def destroy = {
   }

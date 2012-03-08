@@ -9,4 +9,9 @@ modules = {
   fb {
     resource url:[dir: 'css/fb', file: (dev ? 'bootstrap.css' : 'bootstrap.min.css')], disposition: 'head', exclude:'minify'
   }
+
+  jwplayer {
+    dependsOn('jquery')
+    resource url: 'js/jwplayer.js'
+  }
 }

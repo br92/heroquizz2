@@ -93,5 +93,14 @@ log4j = {
       'net.sf.ehcache.hibernate'
 }
 
-facebook.applicationSecret = '2d9add070c92b50084066fe85fee4c76'
-facebook.applicationId = '302026516518035'
+//facebook.applicationSecret = '2d9add070c92b50084066fe85fee4c76'
+//facebook.applicationId = '302026516518035'
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'heroquizz.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'heroquizz.UserRole'
+grails.plugins.springsecurity.authority.className = 'heroquizz.Role'
+
+
+grails.plugins.springsecurity.facebook.domain.classname='heroquizz.FacebookUser'
+grails.plugins.springsecurity.facebook.appId='302026516518035'
+grails.plugins.springsecurity.facebook.secret='2d9add070c92b50084066fe85fee4c76'

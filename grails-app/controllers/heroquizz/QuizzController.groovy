@@ -1,7 +1,9 @@
 package heroquizz
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.plugins.springsecurity.Secured
 
+@Secured(['ROLE_ADMIN', 'ROLE_FACEBOOK'])
 class QuizzController {
 
   static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -15,10 +17,12 @@ class QuizzController {
     [quizzInstanceList: Quizz.list(params), quizzInstanceTotal: Quizz.count()]
   }
 
+  @Secured('ROLE_ADMIN')
   def create() {
     [quizzInstance: new Quizz(params)]
   }
 
+  @Secured('ROLE_ADMIN')
   def save() {
     def quizzInstance = new Quizz(params)
     if (!quizzInstance.save(flush: true)) {
@@ -30,6 +34,7 @@ class QuizzController {
     redirect(action: "show", id: quizzInstance.id)
   }
 
+  @Secured('ROLE_ADMIN')
   def show() {
     def quizzInstance = Quizz.get(params.id)
     if (!quizzInstance) {
@@ -41,6 +46,7 @@ class QuizzController {
     [quizzInstance: quizzInstance]
   }
 
+  @Secured('ROLE_ADMIN')
   def edit() {
     def quizzInstance = Quizz.get(params.id)
     if (!quizzInstance) {
@@ -52,6 +58,7 @@ class QuizzController {
     [quizzInstance: quizzInstance]
   }
 
+  @Secured('ROLE_ADMIN')
   def update() {
     def quizzInstance = Quizz.get(params.id)
     if (!quizzInstance) {
@@ -112,16 +119,16 @@ class QuizzController {
     } else {
       theQuizz = Quizz.get(session.currentQuizzId as Long)
     }
-    
+
     if (!theQuizz) {
       render(view: 'error-canvas')
     }
 
     def questionList = theQuizz.questions as List
-    log.debug ("Questions : ${questionList}")
-    log.debug ("Questions ok: ${session.questionsOk}")
+    log.debug("Questions : ${questionList}")
+    log.debug("Questions ok: ${session.questionsOk}")
     def nextQuestionId = questionList*.id.find { !session.questionsOk.contains(it) }
-    log.debug ("Next question id : ${nextQuestionId}")
+    log.debug("Next question id : ${nextQuestionId}")
 
     if (nextQuestionId)
       session.currentQuestionId = nextQuestionId
@@ -132,25 +139,30 @@ class QuizzController {
   }
 
   def passed() {
-
+    session.currentQuizzId = null
   }
 
   def answer() {
 
+    println "answering with params : ${params}"
     Question currentQuestion = Question.get(params.currentQuestionId as Long)
 
-    def answerLinked = currentQuestion.answers.find { it.id == params.id as Long}
-    if (params.answers.size()) {
+    def answerList = []
+    answerList << params.answers
+    answerList = answerList.flatten()
+    answerList.each { userAnswer ->
+      def matchedAnswer = currentQuestion.answers.find { it.id == userAnswer as Long}
 
-    } else {
-
-    }
-
-
-    if (answerLinked) {
-      session.currentScore = (session.currentScore as Long) + answerLinked.pointsNumber
+      if (matchedAnswer) {
+        session.currentScore = (session.currentScore as Long) + matchedAnswer.pointsNumber
+        println "matched ${matchedAnswer.id} with ${userAnswer}"
+      } else {
+        println "NOT matched with ${userAnswer}"
+      }
       session.questionsOk << currentQuestion.id
     }
+
+    println "Score is now: ${session.currentScore}"
 
     redirect(action: 'take')
   }

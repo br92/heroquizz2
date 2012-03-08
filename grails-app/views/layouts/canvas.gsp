@@ -14,9 +14,6 @@
   <r:require module="fb"/>
 
   <style type="text/css" media="screen">
-  section {
-    padding-top: 60px;
-  }
 
   footer {
     text-align: center;
