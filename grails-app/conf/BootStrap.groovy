@@ -45,7 +45,7 @@ class BootStrap {
       FacebookUser.findAllByUser(user).each { fbUser ->
         fbUser.delete()
       }
-      
+
       user.delete()
     }
     
