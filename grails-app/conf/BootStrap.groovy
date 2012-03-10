@@ -5,6 +5,7 @@ import heroquizz.Role
 import heroquizz.User
 import heroquizz.UserRole
 import grails.util.GrailsUtil
+import heroquizz.FacebookUser
 
 class BootStrap {
 
@@ -41,6 +42,10 @@ class BootStrap {
 
     User.findAll().each { user ->
       UserRole.removeAll(user)
+      FacebookUser.findAllByUser(user).each { fbUser ->
+        fbUser.delete()
+      }
+      
       user.delete()
     }
     
