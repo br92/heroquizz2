@@ -102,4 +102,4 @@ grails.plugins.springsecurity.authority.className = 'heroquizz.Role'
 
 grails.plugins.springsecurity.facebook.domain.classname='heroquizz.FacebookUser'
 grails.plugins.springsecurity.facebook.appId='302026516518035'
-grails.plugins.springsecurity.facebook.secret='2d9add070c92b50084066fe85fee4c76'
+grails.plugins.springsecurity.facebook.secret='79c6e0ca88cf7ce34dcf69c027d4adba'
