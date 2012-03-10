@@ -32,12 +32,17 @@ class BootStrap {
 
     def fbRole = 'ROLE_FACEBOOK'
     if (!Role.findByAuthority(fbRole)) {
-      def roleFb = new Role(authority: fbRole).save()
+      new Role(authority: fbRole).save()
     }
 
     def adminRole = 'ROLE_ADMIN'
     if (!Role.findByAuthority(adminRole)) {
-      def roleAdmin = new Role(authority: adminRole).save()
+      new Role(authority: adminRole).save()
+    }
+
+    def userRole = 'ROLE_USER'
+    if (!Role.findByAuthority(userRole)) {
+      new Role(authority: userRole).save()
     }
 
     if (!User.findByUsername('admin')) {
