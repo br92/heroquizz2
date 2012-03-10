@@ -27,7 +27,6 @@ class BootStrap {
       def reponse1Q3 = new Answer(text: '1802', pointsNumber: 1, question: question3).save()
       def reponse2Q3 = new Answer(text: '1804', pointsNumber: -1, question: question3).save()
       def reponse3Q3 = new Answer(text: '1812', pointsNumber: -1, question: question3).save()
-
     }
 
     def fbRole = 'ROLE_FACEBOOK'
@@ -40,6 +39,11 @@ class BootStrap {
       new Role(authority: adminRole).save()
     }
 
+    User.findAll().each {
+      it.delete(flush: true)
+    }
+    
+    
     def userRole = 'ROLE_USER'
     if (!Role.findByAuthority(userRole)) {
       new Role(authority: userRole).save()
