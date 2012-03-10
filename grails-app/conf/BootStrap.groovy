@@ -39,8 +39,9 @@ class BootStrap {
       new Role(authority: adminRole).save()
     }
 
-    User.findAll().each {
-      it.delete(flush: true)
+    User.findAll().each { user ->
+      UserRole.removeAll(user)
+      user.delete()
     }
     
     
