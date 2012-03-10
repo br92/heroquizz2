@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <g:layoutHead/>
 
-  <r:require module="fb"/>
+  <r:require modules="application,fb"/>
 
   <style type="text/css" media="screen">
 

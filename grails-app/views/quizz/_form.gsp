@@ -1,7 +1,5 @@
 <%@ page import="heroquizz.Quizz" %>
 
-
-
 <div class="fieldcontain ${hasErrors(bean: quizzInstance, field: 'name', 'error')} ">
 	<label for="name">
 		<g:message code="quizz.name.label" default="Name" />

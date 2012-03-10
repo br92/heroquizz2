@@ -9,14 +9,26 @@
 <body>
 
 <div class="hero-unit">
-<h1>
- Quizz technique
-</h1>
-  <p>Mess with the best, die like the rest</p>
-  
-  <g:each in="${Quizz.findByPublished(true)}" var="quizzInstance">
-    <g:link action="take" id="${quizzInstance?.id}">${quizzInstance?.name?.encodeAsHTML()}</g:link>
-  </g:each>
+
+  <p><g:message code="quizz.choose"/></p>
+
+  <ul class="">
+
+  </ul>
+
+  <div class="clearfix">
+
+    <ul>
+      <g:each in="${Quizz.findByPublished(true)}" var="quizzInstance">
+        <li>
+          <span><g:link action="take" id="${quizzInstance?.id}">${quizzInstance?.name?.encodeAsHTML()}</g:link></span>
+        </li>
+
+      </g:each>
+
+    </ul>
+  </div>
+</div>
 </div>
 
 </body>

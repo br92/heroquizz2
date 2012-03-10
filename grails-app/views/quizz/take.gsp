@@ -1,32 +1,29 @@
-<%@ page import="heroquizz.Question" %>
-<!doctype html>
-<html>
 <head>
   <meta name="layout" content="canvas">
-  <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}"/>
-  <title><g:message code="default.show.label" args="[entityName]"/></title>
 </head>
 
 <body>
-
 <r:require module="jwplayer"/>
 
 <div class="hero-unit">
-  <div style=" width: 100%">
-  <div id='mediaplayer' style="text-align: center;"></div>
-  </div>
-  <r:script>
+  <g:if test="${questionInstance.videoUrl}">
+    <div class="video-container">
+      <div id='mediaplayer'></div>
+    </div>
+    <r:script>
     jwplayer('mediaplayer').setup({
       'flashplayer': '${resource(dir: 'flash', file: 'player.swf')}',
       'id': 'playerID',
-      'autostart': true,
-      'width': '480',
-      'height': '270',
-      'file': 'https://s3-eu-west-1.amazonaws.com/xebia-video/2011-10-elastic-search-vs-solr.mp4'
+      'width': '640',
+      'autostart': false,
+      'backgroundColor': 'transparent',
+      'file': '${questionInstance.videoUrl}'
     });
-  </r:script>
-
-  <p><g:fieldValue bean="${questionInstance}" field="text"/></p>
+    </r:script>
+  </g:if>
+  <g:else>
+    <p><g:fieldValue bean="${questionInstance}" field="text"/></p>
+  </g:else>
 
   <g:form action="answer">
     <fieldset>
@@ -42,14 +39,13 @@
                 </label>
               </li>
             </g:each>
-
           </ul>
         </div>
       </div>
     </fieldset>
 
     <div class="actions">
-      <g:submitButton name="submit" value="Valider" class="btn primary" />
+      <g:submitButton name="submit" value="Valider" class="btn primary"/>
     </div>
   </g:form>
 </div>

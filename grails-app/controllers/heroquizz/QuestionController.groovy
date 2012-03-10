@@ -54,11 +54,11 @@ class QuestionController {
     def questionInstance = Question.get(params.id)
     if (!questionInstance) {
       flash.message = message(code: 'default.not.found.message', args: [message(code: 'question.label', default: 'Question'), params.id])
-      redirect(action: "list")
-      return
+      return redirect(action: "list")
     }
+    println "trouvé : ${questionInstance}"
 
-    [questionInstance: questionInstance]
+    [questionInstance: questionInstance, forQuizz: questionInstance.quizz]
   }
 
   def update() {
