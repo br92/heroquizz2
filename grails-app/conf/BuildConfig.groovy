@@ -21,14 +21,6 @@ grails.project.dependency.resolution = {
     grailsHome()
     grailsCentral()
     mavenCentral()
-
-    // uncomment these to enable remote dependency resolution from public Maven repositories
-    //mavenCentral()
-    //mavenLocal()
-    //mavenRepo "http://snapshots.repository.codehaus.org"
-    //mavenRepo "http://repository.codehaus.org"
-    //mavenRepo "http://download.java.net/maven/2/"
-    //mavenRepo "http://repository.jboss.com/maven2/"
   }
   dependencies {
     // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -41,7 +33,7 @@ grails.project.dependency.resolution = {
   plugins {
     runtime ":hibernate:$grailsVersion"
     runtime ":jquery:1.7.1"
-    runtime ":resources:1.1.5"
+    runtime ":resources:1.1.6"
 
     // Uncomment these (or add new ones) to enable additional resources capabilities
     //runtime ":zipped-resources:1.0"
