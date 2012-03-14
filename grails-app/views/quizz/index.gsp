@@ -2,7 +2,7 @@
 <!doctype html>
 <html>
 <head>
-  <meta name="layout" content="canvas">
+  <meta name="layout" content="main">
   <title><g:message code="default.show.label" args="[entityName]"/></title>
 </head>
 

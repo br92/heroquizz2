@@ -23,23 +23,21 @@ grails.project.dependency.resolution = {
     mavenCentral()
   }
   dependencies {
-    // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
-    runtime 'postgresql:postgresql:9.1-901.jdbc4'
+    runtime 'postgresql:postgresql:8.4-702.jdbc4'
     compile 'org.springframework.social:spring-social-core:1.0.2.RELEASE'
     compile 'org.springframework.social:spring-social-facebook:1.0.1.RELEASE'
   }
 
   plugins {
     runtime ":hibernate:$grailsVersion"
+
     runtime ":jquery:1.7.1"
     runtime ":resources:1.1.6"
 
-    // Uncomment these (or add new ones) to enable additional resources capabilities
-    //runtime ":zipped-resources:1.0"
-    //runtime ":cached-resources:1.0"
-    //runtime ":yui-minify-resources:0.1.4"
-
+    /*runtime ":zipped-resources:1.0"
+    runtime ":cached-resources:1.0"
+    runtime ":yui-minify-resources:0.1.4"
+*/
     build ":tomcat:$grailsVersion"
   }
 }

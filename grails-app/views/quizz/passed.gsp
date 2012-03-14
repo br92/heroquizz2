@@ -1,26 +1,18 @@
-<%@ page import="heroquizz.Question" %>
-<!doctype html>
-<html>
 <head>
   <meta name="layout" content="main">
-  <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}"/>
   <title><g:message code="default.show.label" args="[entityName]"/></title>
 </head>
 
 <body>
+<div class="row">
+  <div class="span8 offset2">
+    <div class="hero-unit">
+      <h1>Félicitations !</h1>
 
-<div>
-  <h1>Resultat</h1>
+      <p>Vous avez fait un score total de : ${session.currentScore} points.</p>
 
-  <g:form>
-    <ol class="property-list question">
-
-      <li class="fieldcontain">
-        ${session.currentScore}
-
-      </li>
-
-  </g:form>
+      <p>TODO: "partager sur facebook" en auto</p>
+    </div>
+  </div>
 </div>
 </body>
-</html>

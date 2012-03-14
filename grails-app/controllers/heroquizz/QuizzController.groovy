@@ -3,10 +3,11 @@ package heroquizz
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
 
-@Secured(['ROLE_ADMIN', 'ROLE_FACEBOOK'])
+@Secured(['ROLE_FACEBOOK'])
 class QuizzController {
 
   static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+
 
   def index() {
 

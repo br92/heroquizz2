@@ -11,17 +11,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <g:layoutHead/>
 
-  <r:require module="bootstrap-css"/>
+  <r:require modules="jquery, bootstrap-css"/>
 
   <style type="text/css" media="screen">
   body {
     padding-top: 60px;
   }
 
-    footer {
-      text-align: center;
+  footer {
+    text-align: center;
 
-    }
+  }
 
   </style>
   <r:layoutResources/>
@@ -32,6 +32,10 @@
   <div class="navbar-inner">
     <div class="container">
       <g:link class="brand" controller="home">HeroQuizz</g:link>
+
+      <sec:ifLoggedIn>
+        <sec:username/>
+      </sec:ifLoggedIn>
     </div>
   </div>
 </div>
