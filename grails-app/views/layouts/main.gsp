@@ -33,15 +33,17 @@
     <div class="container">
       <g:link class="brand" controller="home">HeroQuizz</g:link>
 
-      <sec:ifLoggedIn>
-        <sec:username/>
-      </sec:ifLoggedIn>
+
     </div>
   </div>
 </div>
 
 <div class="container">
   <g:layoutBody/>
+
+  <sec:ifLoggedIn>
+    <sec:username/>
+  </sec:ifLoggedIn>
   <hr>
   <footer><p>© <g:link url="http://blog.xebia.fr">XebiaFr</g:link> 2012 -
     Powered by <g:link url="http://www.heroku.com">Heroku</g:link></p></footer>

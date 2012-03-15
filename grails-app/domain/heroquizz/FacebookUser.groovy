@@ -8,6 +8,10 @@ class FacebookUser implements FacebookUserDomain {
   long uid
   String accessToken
 
+  String email
+  String firstName
+  String lastName
+  
   static belongsTo = [user: User]
 
   static constraints = {

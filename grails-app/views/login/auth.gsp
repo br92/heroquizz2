@@ -52,40 +52,7 @@
                  id="submit"
                  value='${message(code: "springSecurity.login.button")}'/>
 
-          <div id="fb-root"></div>
-          <script>
-            window.fbAsyncInit = function() {
-              FB.init({
-                appId  : '302026516518035',
-                status : true,
-                cookie : true,
-                xfbml  : true,
-                oauth  : true
-              });
-
-              FB.Event.subscribe('auth.authResponseChange', function(response) {
-                alert('connected');
-                location = '<g:createLink controller="quizz"/>';
-              });
-
-              FB.getLoginStatus(function(response) {
-                if (response.status === 'connected') {
-                  alert('connected');
-                  var uid = response.authResponse.userID;
-                  var accessToken = response.authResponse.accessToken;
-                } else if (response.status === 'not_authorized') {
-                  alert('not auth');
-                  // the user is logged in to Facebook,
-                  // but has not authenticated your app
-                } else {
-                  // the user isn't logged in to Facebook.
-                  alert('not at all');
-                }
-              });
-            };
-            (function(d){var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}js = d.createElement('script'); js.id = id; js.async = true;js.src = "//connect.facebook.net/en_US/all.js";d.getElementsByTagName('head')[0].appendChild(js);}(document));
-          </script>
-          <div class="fb-login-button" data-scope="email,publish_stream" data-show-faces="false">Login with Facebook</div>
+<g:render template="/commons/facebook-button"/>
         </div>
 
       </form>
