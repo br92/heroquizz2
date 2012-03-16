@@ -105,6 +105,7 @@ environments {
     grails.plugins.springsecurity.secureChannel.definition = [
         '/login/**': 'REQUIRES_SECURE_CHANNEL'
     ]
+    grails.plugins.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
   }
 }
 
