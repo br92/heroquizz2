@@ -11,19 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <g:layoutHead/>
 
-  <r:require modules="jquery, bootstrap-css"/>
+  <r:require modules="jquery, common-css"/>
 
-  <style type="text/css" media="screen">
-  body {
-    padding-top: 60px;
-  }
-
-  footer {
-    text-align: center;
-
-  }
-
-  </style>
   <r:layoutResources/>
 </head>
 
@@ -33,20 +22,22 @@
     <div class="container">
       <g:link class="brand" controller="home">HeroQuizz</g:link>
 
-
     </div>
   </div>
 </div>
 
 <div class="container">
-  <g:layoutBody/>
+  <div class="span12">
+    <g:layoutBody/>
 
-  <sec:ifLoggedIn>
-    <sec:username/>
-  </sec:ifLoggedIn>
-  <hr>
-  <footer><p>© <g:link url="http://blog.xebia.fr">XebiaFr</g:link> 2012 -
-    Powered by <g:link url="http://www.heroku.com">Heroku</g:link></p></footer>
+    <hr>
+    <footer>
+      <p>
+        © <g:link url="http://blog.xebia.fr">XebiaFr</g:link> 2012
+        - Powered by <g:link url="http://www.heroku.com">Heroku</g:link>
+      </p>
+    </footer>
+  </div>
 </div>
 
 

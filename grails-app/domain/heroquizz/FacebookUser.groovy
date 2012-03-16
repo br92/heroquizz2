@@ -15,6 +15,9 @@ class FacebookUser implements FacebookUserDomain {
   static belongsTo = [user: User]
 
   static constraints = {
+    email(blank: true, nullable: true)
+    lastName(blank: true, nullable: true)
+    firstName(blank: true, nullable: true)
     uid unique: true
   }
 }

@@ -3,28 +3,37 @@
 </head>
 
 <body>
+
 <r:require module="jwplayer"/>
 <div class="row">
-  <div class="span8 offset2">
-    <div class="hero-unit">
-      <g:if test="${questionInstance.videoUrl}">
-        <div class="video-container">
-          <div id='mediaplayer'></div>
-        </div>
-        <r:script>
+  <div class="span5 ctxt">
+    <g:if test="${questionInstance.videoUrl}">
+      <div class="video-container">
+        <div id='mediaplayer'></div>
+      </div>
+      <r:script>
     jwplayer('mediaplayer').setup({
       'flashplayer': '${resource(dir: 'flash', file: 'player.swf')}',
       'id': 'playerID',
-      'width': '640',
+      'width': '470',
       'autostart': false,
       'backgroundColor': 'transparent',
       'file': '${questionInstance.videoUrl}'
     });
-        </r:script>
-      </g:if>
-      <g:else>
+      </r:script>
+    </g:if>
+    <g:else>
+      <img src="${resource(dir: 'images', file: 'question.jpg')}"/>
+
+    </g:else>
+  </div>
+
+  <div class="span6">
+    <div class="hero-unit">
+
+      <g:if test="${!questionInstance.videoUrl}">
         <p><g:fieldValue bean="${questionInstance}" field="text"/></p>
-      </g:else>
+      </g:if>
 
       <g:form action="answer" class="form-horizontal">
         <fieldset>

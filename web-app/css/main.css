@@ -1,8 +1,17 @@
 /* FONT STACK */
 body {
-    padding-top: 25px;
+    padding-top: 60px;
+}
+
+footer {
+    text-align: center;
+
 }
 
 .video-container {
+    text-align: center;
+}
+
+.ctxt {
     text-align: center;
 }
