@@ -4,10 +4,10 @@
       <a href="#"
          class="dropdown-toggle"
          data-toggle="dropdown">
-
         <sec:ifAnyGranted roles="ROLE_ADMIN">
           <sec:username/>
         </sec:ifAnyGranted>
+
         <sec:ifAnyGranted roles="ROLE_FACEBOOK">
           <g:message code="account.menu.label" default="Your account"/> ${fbUser?.completeName}
         </sec:ifAnyGranted>

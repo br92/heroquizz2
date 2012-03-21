@@ -10,7 +10,6 @@
   <div class="span8 offset2">
     <div class="hero-unit">
 
-
       <form action='${postUrl}' method='POST' id='loginForm' class='form-horizontal'>
 
         <div class="clearfix">
@@ -52,7 +51,7 @@
                  id="submit"
                  value='${message(code: "springSecurity.login.button")}'/>
 
-<g:render template="/commons/facebook-button"/>
+          <g:render template="/commons/facebook-button"/>
         </div>
 
       </form>

@@ -9,7 +9,6 @@
       </a>
       <ul class="dropdown-menu">
         <li><g:link controller="quizz" action="list">Quizz</g:link></li>
-        <li class="divider"></li>
       </ul>
     </li>
   </ul>

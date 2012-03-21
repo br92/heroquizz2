@@ -24,6 +24,7 @@
       <g:link class="brand" controller="home">HeroQuizz</g:link>
 
       <div class="nav-collapse">
+        <g:render template="/layouts/admin-menu"/>
 
         <g:render template="/layouts/account-menu"/>
       </div>

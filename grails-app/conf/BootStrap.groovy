@@ -43,7 +43,6 @@ class BootStrap {
     if (!User.findByUsername('admin')) {
       def admin = new User(username: 'admin', password: 'admin', enabled: true).save(flush: true)
       UserRole.create(admin, Role.findByAuthority(adminRole), true)
-      UserRole.create(admin, Role.findByAuthority(fbRole), true)
     }
   }
 
