@@ -11,7 +11,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <g:layoutHead/>
 
-  <r:require modules="jquery, common-css"/>
+  <r:require modules="jquery, common-css, bootstrap-dropdown"/>
+
 
   <r:layoutResources/>
 </head>
@@ -21,6 +22,11 @@
   <div class="navbar-inner">
     <div class="container">
       <g:link class="brand" controller="home">HeroQuizz</g:link>
+
+      <div class="nav-collapse">
+
+        <g:render template="/layouts/account-menu"/>
+      </div>
 
     </div>
   </div>

@@ -2,17 +2,22 @@ package heroquizz
 
 import org.springframework.dao.DataIntegrityViolationException
 import grails.plugins.springsecurity.Secured
+import org.springframework.social.facebook.api.impl.FacebookTemplate
+import org.springframework.social.facebook.api.FacebookLink
+import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 
-@Secured(['ROLE_FACEBOOK'])
+@Secured(['ROLE_ADMIN', 'ROLE_FACEBOOK'])
 class QuizzController {
+
+  def springSecurityService
+
+  LinkGenerator grailsLinkGenerator
 
   static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+  def index() {}
 
-  def index() {
-
-  }
-
+  @Secured('ROLE_ADMIN')
   def list() {
     params.max = Math.min(params.max ? params.int('max') : 10, 100)
     [quizzInstanceList: Quizz.list(params), quizzInstanceTotal: Quizz.count()]
@@ -90,6 +95,7 @@ class QuizzController {
     redirect(action: "show", id: quizzInstance.id)
   }
 
+  @Secured('ROLE_ADMIN')
   def delete() {
     def quizzInstance = Quizz.get(params.id)
     if (!quizzInstance) {
@@ -110,61 +116,100 @@ class QuizzController {
   }
 
   def take() {
-    Quizz theQuizz
-
-    if (!session.currentQuizzId) {
-      session.currentQuizzId = params.id
-      session.currentScore = 0
-      theQuizz = Quizz.get(session.currentQuizzId as Long)
-      session.questionsOk = []
-    } else {
-      theQuizz = Quizz.get(session.currentQuizzId as Long)
+    Quizz theQuizz = Quizz.get(params.id)
+    if (!theQuizz) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      return redirect(action: 'index')
     }
 
-    if (!theQuizz) {
-      render(view: 'error-canvas')
+    FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
+    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+
+    if (!currentQuizzAnswer) {
+      currentQuizzAnswer = new QuizzAnswer(originalQuizz: theQuizz, score: 0, completed: false, owner: loggedUser).save()
+      loggedUser.addToQuizzAnswers(currentQuizzAnswer).save()
     }
 
     def questionList = theQuizz.questions as List
-    log.debug("Questions : ${questionList}")
-    log.debug("Questions ok: ${session.questionsOk}")
-    def nextQuestionId = questionList*.id.find { !session.questionsOk.contains(it) }
-    log.debug("Next question id : ${nextQuestionId}")
+    def nextQuestion = questionList.find { !currentQuizzAnswer.validated?.contains(it) }
 
-    if (nextQuestionId)
-      session.currentQuestionId = nextQuestionId
-    else
-      redirect(action: 'passed')
+    if (!nextQuestion) {
+      currentQuizzAnswer.completed = true
+      currentQuizzAnswer.save()
+      return redirect(action: 'passed', id: params.id)
+    }
 
-    [quizzInstance: theQuizz, questionInstance: Question.get(session.currentQuestionId as Long)]
+    [quizzInstance: theQuizz, questionInstance: nextQuestion]
   }
 
-  def passed() {
-    session.currentQuizzId = null
-  }
+
 
   def answer() {
+    Question currentQuestion = Question.get(params.id as Long)
 
-    println "answering with params : ${params}"
-    Question currentQuestion = Question.get(params.currentQuestionId as Long)
+    Quizz theQuizz = Quizz.get(params.quizzId)
+    if (!theQuizz) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
+      return redirect(action: 'index')
+    }
+
+    FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
+    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+
+    if (!currentQuizzAnswer) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
+      return redirect(action: 'index')
+    }
+
 
     def answerList = []
     answerList << params.answers
     answerList = answerList.flatten()
+
     answerList.each { userAnswer ->
       def matchedAnswer = currentQuestion.answers.find { it.id == userAnswer as Long}
-
       if (matchedAnswer) {
-        session.currentScore = (session.currentScore as Long) + matchedAnswer.pointsNumber
-        println "matched ${matchedAnswer.id} with ${userAnswer}"
-      } else {
-        println "NOT matched with ${userAnswer}"
+        currentQuizzAnswer.score += matchedAnswer.pointsNumber
       }
-      session.questionsOk << currentQuestion.id
     }
 
-    println "Score is now: ${session.currentScore}"
+    currentQuizzAnswer.addToValidated(currentQuestion)
 
-    redirect(action: 'take')
+    currentQuizzAnswer.save()
+
+    println "Score is now: ${currentQuizzAnswer.score}"
+
+    redirect(action: 'take', id: params.quizzId)
+  }
+
+  def passed() {
+    Quizz theQuizz = Quizz.get(params.id)
+    if (!theQuizz) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      return redirect(action: 'index')
+    }
+
+    FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
+    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+
+    if (!currentQuizzAnswer) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
+      return redirect(action: 'index')
+    }
+
+    FacebookTemplate facebook = new FacebookTemplate(loggedUser.accessToken)
+    def postContent = """
+      Au questionnaire HeroQuizz ${currentQuizzAnswer.originalQuizz.name}, j'ai fait un score de
+      ${currentQuizzAnswer.score}. Essaie un peu de faire mieux pour voir !
+    """
+    try {
+      def quizzUrl = grailsLinkGenerator.link(controller: 'quizz', action: 'take', id: currentQuizzAnswer.originalQuizz.id, absolute: true)
+      log.debug("quizzUrl : ${quizzUrl}")
+      facebook.feedOperations().postLink('me', postContent.toString(), new FacebookLink(quizzUrl, "Essayer", "caption", "Questionnaire"))
+
+    } catch (Exception e) {
+      log.error("aaah", e)
+    }
+    [quizzAnswerInstance: currentQuizzAnswer]
   }
 }

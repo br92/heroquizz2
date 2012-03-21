@@ -8,10 +8,9 @@
   <div class="span8 offset2">
     <div class="hero-unit">
       <h1>Félicitations !</h1>
-
-      <p>Vous avez fait un score total de : ${session.currentScore} points.</p>
-
-      <p>TODO: "partager sur facebook" en auto</p>
+<h3>Au questionnaire "${quizzAnswerInstance.originalQuizz.name}"</h3>
+      <p>Votre score final est de : ${quizzAnswerInstance.score} points.</p>
+      <p><g:link controller="quizz">Tenter un autre questionnaire</g:link></p>
     </div>
   </div>
 </div>

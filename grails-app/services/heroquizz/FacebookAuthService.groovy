@@ -6,7 +6,8 @@ import org.springframework.social.facebook.api.FacebookProfile
 
 class FacebookAuthService {
 
-  void afterCreate(FacebookUser user, FacebookAuthToken token) {
+  void onCreate(FacebookUser user, FacebookAuthToken token) {
+
     FacebookTemplate facebook = new FacebookTemplate(token.accessToken)
     FacebookProfile fbProfile = facebook.userOperations().userProfile
 
@@ -16,5 +17,9 @@ class FacebookAuthService {
 
     user.accessToken = token.accessToken
 
+  }
+
+  def getPrincipal(FacebookUser fbUser) {
+    return fbUser.user
   }
 }

@@ -1,6 +1,5 @@
 package heroquizz
 
-import org.springframework.social.facebook.api.FacebookProfile
 import org.springframework.social.facebook.api.impl.FacebookTemplate
 import grails.plugins.springsecurity.Secured
 

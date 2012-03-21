@@ -111,6 +111,15 @@ environments {
 
 // Spring Security Facebook plugin:
 grails.plugins.springsecurity.facebook.domain.classname = 'heroquizz.FacebookUser'
-grails.plugins.springsecurity.facebook.appId = '302026516518035'
-grails.plugins.springsecurity.facebook.secret = '79c6e0ca88cf7ce34dcf69c027d4adba'
 grails.plugins.springsecurity.facebook.button.text = "Enter"
+
+environments {
+  development {
+    grails.plugins.springsecurity.facebook.appId = '327921343931669'
+    grails.plugins.springsecurity.facebook.secret = '9f9d9dc28df1831b8fadb04302da4f0a'
+  }
+  production {
+    grails.plugins.springsecurity.facebook.appId = '302026516518035'
+    grails.plugins.springsecurity.facebook.secret = '79c6e0ca88cf7ce34dcf69c027d4adba'
+  }
+}

@@ -35,9 +35,9 @@
         <p><g:fieldValue bean="${questionInstance}" field="text"/></p>
       </g:if>
 
-      <g:form action="answer" class="form-horizontal">
+      <g:form action="answer" class="form-horizontal" id="${questionInstance?.id}">
         <fieldset>
-          <g:hiddenField name="currentQuestionId" value="${questionInstance?.id}"/>
+          <g:hiddenField name="quizzId" value="${quizzInstance?.id}"/>
 
           <div class="control-group">
             <label class="control-label" for="optionsCheckboxList">Votre réponse :</label>
