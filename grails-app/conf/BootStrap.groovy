@@ -32,35 +32,21 @@ class BootStrap {
 
     def fbRole = 'ROLE_FACEBOOK'
     if (!Role.findByAuthority(fbRole)) {
-      new Role(authority: fbRole).save()
+      new Role(authority: fbRole).save(flush: true)
     }
 
     def adminRole = 'ROLE_ADMIN'
     if (!Role.findByAuthority(adminRole)) {
-      new Role(authority: adminRole).save()
-    }
-
-    User.findAll().each { user ->
-      UserRole.removeAll(user)
-      FacebookUser.findAllByUser(user).each { fbUser ->
-        fbUser.delete()
-      }
-
-      user.delete()
-    }
-    
-    
-    def userRole = 'ROLE_USER'
-    if (!Role.findByAuthority(userRole)) {
-      new Role(authority: userRole).save()
+      new Role(authority: adminRole).save(flush: true)
     }
 
     if (!User.findByUsername('admin')) {
-      def admin = new User(username: 'admin', password: 'admin', enabled: true).save()
+      def admin = new User(username: 'admin', password: 'admin', enabled: true).save(flush: true)
       UserRole.create(admin, Role.findByAuthority(adminRole), true)
       UserRole.create(admin, Role.findByAuthority(fbRole), true)
     }
   }
+
   def destroy = {
   }
 }
