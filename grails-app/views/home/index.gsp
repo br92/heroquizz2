@@ -16,7 +16,8 @@
         </div>
 
         <div class="well" id="facebook-like" style="display: none;">
-            <div class="fb-like" data-href="<g:createLink controller="home" absolute="true"/>" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+            <div class="fb-like" data-href="<g:createLink controller="home" absolute="true"/>" data-send="false"
+                 data-layout="box_count" data-width="450" data-show-faces="false" data-font="arial"></div>
         </div>
 
     </div>
@@ -46,9 +47,11 @@
 
         <hr/>
 
-        <p>
-            <g:link controller="quizz"><g:message code="index.enter.quizz"/></g:link>
-        </p>
+        <div class="ctxt">
+            <g:link class="btn btn-primary" controller="quizz" action="index"><g:message
+                    code="index.enter.quizz"/></g:link>
+        </div>
+
     </div>
 </div>
 </body>
