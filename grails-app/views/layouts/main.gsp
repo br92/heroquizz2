@@ -21,7 +21,7 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <g:link class="brand" controller="home">HeroQuizz</g:link>
+      <g:link class="brand" controller="home">Xebia Quizz</g:link>
 
       <div class="nav-collapse">
         <g:render template="/layouts/admin-menu"/>

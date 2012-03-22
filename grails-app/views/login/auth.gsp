@@ -51,7 +51,6 @@
                  id="submit"
                  value='${message(code: "springSecurity.login.button")}'/>
 
-          <g:render template="/commons/facebook-button"/>
         </div>
 
       </form>
