@@ -3,7 +3,6 @@ def dev = grails.util.GrailsUtil.isDevelopmentEnv()
 modules = {
   application {
     resource url: 'js/application.js'
-
   }
 
   jwplayer {

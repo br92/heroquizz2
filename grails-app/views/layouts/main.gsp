@@ -13,11 +13,11 @@
 
   <r:require modules="jquery, common-css, bootstrap-dropdown"/>
 
-
   <r:layoutResources/>
 </head>
 
 <body>
+
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
@@ -34,20 +34,24 @@
 </div>
 
 <div class="container">
-  <div class="span12">
-    <g:layoutBody/>
 
-    <hr>
-    <footer>
-      <p>
-        © <g:link url="http://blog.xebia.fr">XebiaFr</g:link> 2012
-        - Powered by <g:link url="http://www.heroku.com">Heroku</g:link>
-      </p>
-    </footer>
+  <g:layoutBody/>
+
+  <div class="row">
+    <div class="span12">
+      <hr>
+      <footer>
+        <p>
+          © <g:link url="http://blog.xebia.fr">XebiaFr</g:link> 2012
+          - Powered by <g:link url="http://www.heroku.com">Heroku</g:link>
+        </p>
+      </footer>
+    </div>
   </div>
+
 </div>
 
-
 <r:layoutResources/>
+
 </body>
 </html>

@@ -19,7 +19,7 @@ class AnswerController {
     if (!params.id) {
       log.warn("Can't create answer not linked to a given question id")
     }
-    [answerInstance: new Answer(params), questionId: params.id]
+    [answerInstance: new Answer(params), forQuestion: Question.get(params.id as Long)]
   }
 
   def save() {
