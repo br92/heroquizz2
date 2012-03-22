@@ -1,7 +1,6 @@
 <%@ page import="heroquizz.Answer" %>
 
 
-
 <div class="control-group ${hasErrors(bean: answerInstance, field: 'text', 'error')} ">
   <label for="text" class="control-label">
     <g:message code="answer.text.label" default="Text"/>

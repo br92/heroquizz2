@@ -56,7 +56,7 @@ class AnswerController {
       return
     }
 
-    [answerInstance: answerInstance]
+    [answerInstance: answerInstance, forQuestion: answerInstance.question]
   }
 
   def update() {
