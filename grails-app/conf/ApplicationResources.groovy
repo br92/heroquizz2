@@ -2,16 +2,12 @@ def dev = grails.util.GrailsUtil.isDevelopmentEnv()
 
 modules = {
   application {
-    resource url: 'js/application.js'
+      dependsOn('jquery', 'bootstrap-responsive-css', 'bootstrap-dropdown')
+      resource url: 'css/main.css'
   }
 
   jwplayer {
     dependsOn('jquery')
     resource url: 'js/jwplayer.js'
-  }
-
-  'common-css' {
-    dependsOn('bootstrap-css')
-    resource url: 'css/main.css'
   }
 }

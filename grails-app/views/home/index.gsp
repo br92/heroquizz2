@@ -1,14 +1,11 @@
-<!doctype html>
-<html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
-
+    <title><g:message code="app.title"/></title>
 </head>
 
 <body>
-
 <div class="row">
+
     <div class="span3">
 
         <div class="well" id="facebook-connect">
@@ -55,4 +52,3 @@
     </div>
 </div>
 </body>
-</html>

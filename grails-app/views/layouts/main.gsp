@@ -1,4 +1,4 @@
-<!doctype html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<!doctype html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
@@ -7,11 +7,11 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title><g:layoutTitle default="Grails"/></title>
+  <title><g:layoutTitle default="Xebia Quizz"/></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <g:layoutHead/>
 
-  <r:require modules="jquery, common-css, bootstrap-dropdown"/>
+  <r:require modules="application"/>
 
   <r:layoutResources/>
 </head>

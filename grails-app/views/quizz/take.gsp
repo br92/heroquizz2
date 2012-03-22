@@ -54,6 +54,7 @@
             </fieldset>
 
             <hr/>
+
             <div class="actions ctxt">
                 <g:submitButton name="submit" value="Valider" class="btn btn-primary"/>
             </div>

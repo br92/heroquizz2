@@ -1,66 +1,64 @@
 <head>
-  <meta name='layout' content='main'/>
-  <title><g:message code="springSecurity.login.title"/>
-  </title>
+    <meta name='layout' content='main'/>
+    <title>
+        <g:message code="app.title"/> - <g:message code="springSecurity.login.title"/>
+    </title>
 </head>
 
 <body>
-
 <div class="row">
-  <div class="span8 offset2">
-    <div class="hero-unit">
+    <div class="span6 offset3 well">
+        <form action="${postUrl}" method="POST" class="form-horizontal">
+            <fieldset>
+                <div class="control-group">
+                    <label for="username" class="control-label">
+                        <g:message code="springSecurity.login.username.label"/> :
+                    </label>
 
-      <form action='${postUrl}' method='POST' id='loginForm' class='form-horizontal'>
+                    <div class="controls">
+                        <input type="text" name="j_username" id="username"/>
+                    </div>
+                </div>
 
-        <div class="clearfix">
-          <label for='username'><g:message
-              code="springSecurity.login.username.label"/>:</label>
+                <div class="control-group">
+                    <label for="password" class="control-label">
+                        <g:message code="springSecurity.login.password.label"/> :
+                    </label>
 
-          <div class="input">
-            <input type='text' class='text_' name='j_username' id='username'/>
-          </div>
-        </div>
+                    <div class="controls">
+                        <input type="password" class="input-large" name="j_password" id="password"/>
+                    </div>
+                </div>
 
-        <div class="clearfix">
-          <label for='password'><g:message
-              code="springSecurity.login.password.label"/>:</label>
+                <div class="control-group">
+                    <label for='remember_me' class="control-label">
+                        <g:message code="springSecurity.login.remember.me.label"/>
+                    </label>
 
-          <div class="input">
-            <input type='password' class='text_' name='j_password'
-                   id='password'/>
-          </div>
-        </div>
+                    <div class="controls">
+                        <input type='checkbox'
+                               name='${rememberMeParameter}'
+                               id='remember_me'
+                               <g:if test='${hasCookie}'>checked='checked'</g:if>/>
+                    </div>
+                </div>
 
-        <div class="clearfix">
-          <label for='remember_me'><g:message
-              code="springSecurity.login.remember.me.label"/>
-          </label>
+                <div class="form-actions">
+                    <input type='submit'
+                           class="btn btn-primary"
+                           id="submit"
+                           value='${message(code: "springSecurity.login.button")}'/>
 
-          <div class="input">
-            <input type='checkbox'
-                   class='chk'
-                   name='${rememberMeParameter}'
-                   id='remember_me'
-                   <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-          </div>
-        </div>
-
-        <div class="actions">
-          <input type='submit'
-                 class="btn primary"
-                 id="submit"
-                 value='${message(code: "springSecurity.login.button")}'/>
-
-        </div>
-
-      </form>
+                </div>
+            </fieldset>
+        </form>
     </div>
-  </div>
 </div>
 
-
 <r:script>
-  $('#username').focus();
+    $(function () {
+        $('#username').focus();
+    });
 </r:script>
 
 </body>
