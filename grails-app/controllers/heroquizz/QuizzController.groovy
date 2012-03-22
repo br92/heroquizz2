@@ -65,6 +65,23 @@ class QuizzController {
   }
 
   @Secured('ROLE_ADMIN')
+  def publish() {
+    def quizzInstance = Quizz.get(params.id)
+    if (!quizzInstance) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      redirect(action: "list")
+      return
+    }
+
+    quizzInstance.published = true
+    quizzInstance.save()
+
+    flash.message = 'Quizz published'
+
+    redirect(action: "list")
+  }
+
+  @Secured('ROLE_ADMIN')
   def update() {
     def quizzInstance = Quizz.get(params.id)
     if (!quizzInstance) {

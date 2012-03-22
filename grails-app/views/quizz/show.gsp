@@ -67,6 +67,11 @@
                                                                                       default="Edit"/></g:link>
           <g:link class="btn btn-info" controller="question" action="create"
                       id="${quizzInstance?.id}">Add question</g:link>
+
+          <g:actionSubmit class="btn btn-info" action="publish" id="${quizzInstance?.id}"
+                          value="Publish"
+                          onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
+
           <g:actionSubmit class="btn btn-dark" action="delete"
                               value="${message(code: 'default.button.delete.label', default: 'Delete')}"
                               onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
