@@ -43,7 +43,7 @@
       <footer>
         <p>
           © <g:link url="http://blog.xebia.fr">XebiaFr</g:link> 2012
-          - Powered by <g:link url="http://www.heroku.com">Heroku</g:link>
+          - Powered by <g:link url="http://www.heroku.com">Heroku</g:link> - <g:link action="credits">Crédits</g:link>
         </p>
       </footer>
     </div>

@@ -6,7 +6,7 @@ import org.springframework.social.facebook.api.impl.FacebookTemplate
 import org.springframework.social.facebook.api.FacebookLink
 import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 
-@Secured(['ROLE_ADMIN', 'ROLE_FACEBOOK'])
+
 class QuizzController {
 
   def springSecurityService
@@ -132,6 +132,7 @@ class QuizzController {
     }
   }
 
+  @Secured('ROLE_FACEBOOK')
   def take() {
     Quizz theQuizz = Quizz.get(params.id)
     if (!theQuizz) {
@@ -160,7 +161,7 @@ class QuizzController {
   }
 
 
-
+  @Secured('ROLE_FACEBOOK')
   def answer() {
     Question currentQuestion = Question.get(params.id as Long)
 
@@ -199,6 +200,7 @@ class QuizzController {
     redirect(action: 'take', id: params.quizzId)
   }
 
+  @Secured('ROLE_FACEBOOK')
   def passed() {
     Quizz theQuizz = Quizz.get(params.id)
     if (!theQuizz) {
@@ -229,4 +231,6 @@ class QuizzController {
     }
     [quizzAnswerInstance: currentQuizzAnswer]
   }
+
+  def disclaimer() {}
 }

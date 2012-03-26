@@ -2,8 +2,7 @@ package heroquizz
 
 class HomeController {
 
+  def index() { }
 
-  def index() {
-
-  }
+  def credits() { }
 }
