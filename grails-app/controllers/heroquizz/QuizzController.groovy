@@ -15,6 +15,7 @@ class QuizzController {
 
   static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+  @Secured('ROLE_FACEBOOK')
   def index() {}
 
   @Secured('ROLE_ADMIN')

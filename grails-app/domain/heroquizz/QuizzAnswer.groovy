@@ -7,6 +7,9 @@ class QuizzAnswer {
   Quizz originalQuizz
   int score
   boolean completed
+  
+  Date dateCreated
+  Date lastUpdated
 
   static hasMany = [validated: Question]
 

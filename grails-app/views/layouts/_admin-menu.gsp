@@ -9,6 +9,7 @@
       </a>
       <ul class="dropdown-menu">
         <li><g:link controller="quizz" action="list">Quizz</g:link></li>
+        <li><g:link controller="quizzAnswer" action="list">Copies rendues</g:link></li>
       </ul>
     </li>
   </ul>
