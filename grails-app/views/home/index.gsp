@@ -20,13 +20,6 @@
                      data-width="200" data-show-faces="true"></div>
 
             </div>
-
-            <div class="well">
-                <div class="fb-subscribe"
-                     data-href="<g:createLink controller="home" absolute="true"/>"
-                     data-show-faces="true"
-                     data-width="200"></div>
-            </div>
         </div>
 
     </div>
