@@ -103,7 +103,7 @@ environments {
     grails.plugins.springsecurity.portMapper.httpPort = 80
     grails.plugins.springsecurity.portMapper.httpsPort = 443
     grails.plugins.springsecurity.secureChannel.definition = [
-        '/login/**': 'REQUIRES_SECURE_CHANNEL'
+        '/**': 'REQUIRES_SECURE_CHANNEL'
     ]
     grails.plugins.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
   }
