@@ -3,10 +3,12 @@ package heroquizz
 class Quizz {
 
   String name
+
   String description
+
   boolean published
 
-  static hasMany = [questions: Question]
+  static hasMany = [questions: Question, scoreMessages: ScoreMessage]
 
   static constraints = {
     name maxSize: 100

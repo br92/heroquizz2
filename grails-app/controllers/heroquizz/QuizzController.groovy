@@ -9,235 +9,236 @@ import org.codehaus.groovy.grails.web.mapping.LinkGenerator
 
 class QuizzController {
 
-    def springSecurityService
+  def springSecurityService
 
-    LinkGenerator grailsLinkGenerator
+  LinkGenerator grailsLinkGenerator
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+  static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-    @Secured('ROLE_FACEBOOK')
-    def index() {}
+  @Secured('ROLE_FACEBOOK')
+  def index() {}
 
-    @Secured('ROLE_ADMIN')
-    def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [quizzInstanceList: Quizz.list(params), quizzInstanceTotal: Quizz.count()]
+  @Secured('ROLE_ADMIN')
+  def list() {
+    params.max = Math.min(params.max ? params.int('max') : 10, 100)
+    [quizzInstanceList: Quizz.list(params), quizzInstanceTotal: Quizz.count()]
+  }
+
+  @Secured('ROLE_ADMIN')
+  def create() {
+    [quizzInstance: new Quizz(params)]
+  }
+
+  @Secured('ROLE_ADMIN')
+  def save() {
+    def quizzInstance = new Quizz(params)
+    if (!quizzInstance.save(flush: true)) {
+      render(view: "create", model: [quizzInstance: quizzInstance])
+      return
     }
 
-    @Secured('ROLE_ADMIN')
-    def create() {
-        [quizzInstance: new Quizz(params)]
+    flash.message = message(code: 'default.created.message', args: [message(code: 'quizz.label', default: 'Quizz'), quizzInstance.id])
+    redirect(action: "show", id: quizzInstance.id)
+  }
+
+  @Secured('ROLE_ADMIN')
+  def show() {
+    def quizzInstance = Quizz.get(params.id)
+    if (!quizzInstance) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      redirect(action: "list")
+      return
     }
 
-    @Secured('ROLE_ADMIN')
-    def save() {
-        def quizzInstance = new Quizz(params)
-        if (!quizzInstance.save(flush: true)) {
-            render(view: "create", model: [quizzInstance: quizzInstance])
-            return
-        }
+    [quizzInstance: quizzInstance]
+  }
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'quizz.label', default: 'Quizz'), quizzInstance.id])
-        redirect(action: "show", id: quizzInstance.id)
+  @Secured('ROLE_ADMIN')
+  def edit() {
+    def quizzInstance = Quizz.get(params.id)
+    if (!quizzInstance) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      redirect(action: "list")
+      return
     }
 
-    @Secured('ROLE_ADMIN')
-    def show() {
-        def quizzInstance = Quizz.get(params.id)
-        if (!quizzInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
-            redirect(action: "list")
-            return
-        }
+    [quizzInstance: quizzInstance]
+  }
 
-        [quizzInstance: quizzInstance]
+  @Secured('ROLE_ADMIN')
+  def publish() {
+    def quizzInstance = Quizz.get(params.id)
+    if (!quizzInstance) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      redirect(action: "list")
+      return
     }
 
-    @Secured('ROLE_ADMIN')
-    def edit() {
-        def quizzInstance = Quizz.get(params.id)
-        if (!quizzInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
-            redirect(action: "list")
-            return
-        }
+    quizzInstance.published = true
+    quizzInstance.save()
 
-        [quizzInstance: quizzInstance]
+    flash.message = 'Quizz published'
+
+    redirect(action: "list")
+  }
+
+  @Secured('ROLE_ADMIN')
+  def update() {
+    def quizzInstance = Quizz.get(params.id)
+    if (!quizzInstance) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      redirect(action: "list")
+      return
     }
 
-    @Secured('ROLE_ADMIN')
-    def publish() {
-        def quizzInstance = Quizz.get(params.id)
-        if (!quizzInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
-            redirect(action: "list")
-            return
-        }
-
-        quizzInstance.published = true
-        quizzInstance.save()
-
-        flash.message = 'Quizz published'
-
-        redirect(action: "list")
+    if (params.version) {
+      def version = params.version.toLong()
+      if (quizzInstance.version > version) {
+        quizzInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
+            [message(code: 'quizz.label', default: 'Quizz')] as Object[],
+            "Another user has updated this Quizz while you were editing")
+        render(view: "edit", model: [quizzInstance: quizzInstance])
+        return
+      }
     }
 
-    @Secured('ROLE_ADMIN')
-    def update() {
-        def quizzInstance = Quizz.get(params.id)
-        if (!quizzInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
-            redirect(action: "list")
-            return
-        }
+    quizzInstance.properties = params
 
-        if (params.version) {
-            def version = params.version.toLong()
-            if (quizzInstance.version > version) {
-                quizzInstance.errors.rejectValue("version", "default.optimistic.locking.failure",
-                        [message(code: 'quizz.label', default: 'Quizz')] as Object[],
-                        "Another user has updated this Quizz while you were editing")
-                render(view: "edit", model: [quizzInstance: quizzInstance])
-                return
-            }
-        }
-
-        quizzInstance.properties = params
-
-        if (!quizzInstance.save(flush: true)) {
-            render(view: "edit", model: [quizzInstance: quizzInstance])
-            return
-        }
-
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'quizz.label', default: 'Quizz'), quizzInstance.id])
-        redirect(action: "show", id: quizzInstance.id)
+    if (!quizzInstance.save(flush: true)) {
+      render(view: "edit", model: [quizzInstance: quizzInstance])
+      return
     }
 
-    @Secured('ROLE_ADMIN')
-    def delete() {
-        def quizzInstance = Quizz.get(params.id)
-        if (!quizzInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
-            redirect(action: "list")
-            return
-        }
+    flash.message = message(code: 'default.updated.message', args: [message(code: 'quizz.label', default: 'Quizz'), quizzInstance.id])
+    redirect(action: "show", id: quizzInstance.id)
+  }
 
-        try {
-            quizzInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
-            redirect(action: "show", id: params.id)
-        }
+  @Secured('ROLE_ADMIN')
+  def delete() {
+    def quizzInstance = Quizz.get(params.id)
+    if (!quizzInstance) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      redirect(action: "list")
+      return
     }
 
-    @Secured('ROLE_FACEBOOK')
-    def take() {
-        Quizz theQuizz = Quizz.get(params.id)
-        if (!theQuizz) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
-            return redirect(action: 'index')
-        }
+    try {
+      quizzInstance.delete(flush: true)
+      flash.message = message(code: 'default.deleted.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      redirect(action: "list")
+    }
+    catch (DataIntegrityViolationException e) {
+      flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      redirect(action: "show", id: params.id)
+    }
+  }
 
-        FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
-        def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+  @Secured('ROLE_FACEBOOK')
+  def take() {
+    Quizz theQuizz = Quizz.get(params.id)
+    if (!theQuizz) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      return redirect(action: 'index')
+    }
 
-        if (!currentQuizzAnswer) {
-            currentQuizzAnswer = new QuizzAnswer(originalQuizz: theQuizz, score: 0, completed: false, owner: loggedUser).save()
-            loggedUser.addToQuizzAnswers(currentQuizzAnswer).save()
-        }
+    FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
+    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
 
-        def questionList = theQuizz.questions as List
-        def nextQuestion = questionList.find { !currentQuizzAnswer.validated?.contains(it) }
+    if (!currentQuizzAnswer) {
+      currentQuizzAnswer = new QuizzAnswer(originalQuizz: theQuizz, score: 0, completed: false, owner: loggedUser).save()
+      loggedUser.addToQuizzAnswers(currentQuizzAnswer).save()
+    }
 
-        if (!nextQuestion) {
-            currentQuizzAnswer.completed = true
-            currentQuizzAnswer.save()
-            return redirect(action: 'passed', id: params.id)
-        }
+    def questionList = theQuizz.questions as List
+    def nextQuestion = questionList.find { !currentQuizzAnswer.validated?.contains(it) }
 
-        [quizzInstance: theQuizz, questionInstance: nextQuestion]
+    if (!nextQuestion) {
+      currentQuizzAnswer.completed = true
+      currentQuizzAnswer.save()
+      return redirect(action: 'passed', id: params.id)
+    }
+
+    [quizzInstance: theQuizz, questionInstance: nextQuestion]
+  }
+
+
+  @Secured('ROLE_FACEBOOK')
+  def answer() {
+    Question currentQuestion = Question.get(params.id as Long)
+
+    Quizz theQuizz = Quizz.get(params.quizzId)
+    if (!theQuizz) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
+      return redirect(action: 'index')
+    }
+
+    FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
+    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+
+    if (!currentQuizzAnswer) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
+      return redirect(action: 'index')
     }
 
 
-    @Secured('ROLE_FACEBOOK')
-    def answer() {
-        Question currentQuestion = Question.get(params.id as Long)
+    def answerList = []
+    answerList << params.answers
+    answerList = answerList.flatten()
 
-        Quizz theQuizz = Quizz.get(params.quizzId)
-        if (!theQuizz) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
-            return redirect(action: 'index')
-        }
-
-        FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
-        def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
-
-        if (!currentQuizzAnswer) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
-            return redirect(action: 'index')
-        }
-
-
-        def answerList = []
-        answerList << params.answers
-        answerList = answerList.flatten()
-
-        answerList.each { userAnswer ->
-            def matchedAnswer = currentQuestion.answers.find { it.id == userAnswer as Long}
-            if (matchedAnswer) {
-                currentQuizzAnswer.score += matchedAnswer.pointsNumber
-            }
-        }
-
-        currentQuizzAnswer.addToValidated(currentQuestion)
-
-        currentQuizzAnswer.save()
-
-        println "Score is now: ${currentQuizzAnswer.score}"
-
-        redirect(action: 'take', id: params.quizzId)
+    answerList.each { userAnswer ->
+      def matchedAnswer = currentQuestion.answers.find { it.id == userAnswer as Long}
+      if (matchedAnswer) {
+        currentQuizzAnswer.score += matchedAnswer.pointsNumber
+      }
     }
 
-    @Secured('ROLE_FACEBOOK')
-    def passed() {
-        Quizz theQuizz = Quizz.get(params.id)
+    currentQuizzAnswer.addToValidated(currentQuestion)
 
-        if (!theQuizz) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
-            return redirect(action: 'index')
-        }
+    currentQuizzAnswer.save()
 
-        FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
+    println "Score is now: ${currentQuizzAnswer.score}"
 
-        def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+    redirect(action: 'take', id: params.quizzId)
+  }
 
-        if (!currentQuizzAnswer) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
-            return redirect(action: 'index')
-        }
+  @Secured('ROLE_FACEBOOK')
+  def passed() {
 
-        FacebookTemplate facebook = new FacebookTemplate(loggedUser.accessToken)
+    Quizz theQuizz = Quizz.get(params.id)
 
-        def postContent = """
-      Au Xebia quizz "${currentQuizzAnswer.originalQuizz.name}", j'ai fait un score de
-      ${currentQuizzAnswer.score} points. Essaie un peu de faire mieux pour voir !
-    """
-        try {
-            def quizzUrl = grailsLinkGenerator.link(controller: 'quizz', action: 'take', id: currentQuizzAnswer.originalQuizz.id, absolute: true)
-
-            log.debug("quizzUrl : ${quizzUrl}")
-
-            facebook.feedOperations().postLink('me', postContent.toString(), new FacebookLink(quizzUrl, "Essayer", "caption", "Questionnaire"))
-
-
-        } catch (Exception e) {
-            log.error("aaah", e)
-        }
-        [quizzAnswerInstance: currentQuizzAnswer]
+    if (!theQuizz) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.id])
+      return redirect(action: 'index')
     }
 
-    def disclaimer() {}
+    FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
+
+    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+
+    if (!currentQuizzAnswer) {
+      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
+      return redirect(action: 'index')
+    }
+
+    FacebookTemplate facebook = new FacebookTemplate(loggedUser.accessToken)
+
+    def postContent = """Au Xebia Quizz "${currentQuizzAnswer.originalQuizz.name}", j'ai fait un score de
+      ${currentQuizzAnswer.score} points. Essaie un peu de faire mieux pour voir !"""
+
+    try {
+      def quizzUrl = grailsLinkGenerator.link(controller: 'home', absolute: true)
+
+      def linkToPost = new FacebookLink(quizzUrl, "Xebia Quizz", 'QCM techniques', 'Testez vos connaissances')
+
+      facebook.feedOperations().postLink('me', postContent.toString(), linkToPost)
+    } catch (Exception e) {
+      log.error('Problem posting link to facebook user timeline', e)
+    }
+
+    ScoreMessage.findByMinimumLessThan(currentQuizzAnswer.score, [order: 'minimum', sort: 'asc'])
+
+    [quizzAnswerInstance: currentQuizzAnswer]
+  }
+
+  def disclaimer() {}
 }

@@ -58,23 +58,41 @@
         </li>
       </g:if>
 
+      <g:if test="${quizzInstance?.scoreMessages}">
+        <li class="fieldcontain">
+          <span id="scores-label" class="property-label"><g:message code="quizz.scores.label"
+                                                                    default="Score messages"/></span>
+
+          <ul>
+            <g:each in="${quizzInstance.scoreMessages}" var="q">
+              <li><g:link controller="scoreMessage" action="show" id="${q.id}">${q?.message?.encodeAsHTML()}</g:link></li>
+            </g:each>
+          </ul>
+
+        </li>
+      </g:if>
+
     </ol>
     <g:form>
       <fieldset>
         <g:hiddenField name="id" value="${quizzInstance?.id}"/>
         <div class="form-actions">
-          <g:link class="btn btn-primary" action="edit" id="${quizzInstance?.id}"><g:message code="default.button.edit.label"
-                                                                                      default="Edit"/></g:link>
+          <g:link class="btn btn-primary" action="edit" id="${quizzInstance?.id}"><g:message
+              code="default.button.edit.label"
+              default="Edit"/></g:link>
           <g:link class="btn btn-info" controller="question" action="create"
-                      id="${quizzInstance?.id}">Add question</g:link>
+                  id="${quizzInstance?.id}">Add question</g:link>
 
-          <g:actionSubmit class="btn btn-info" action="publish" id="${quizzInstance?.id}"
+          <g:link class="btn btn-info" controller="scoreMessage" action="create"
+                  id="${quizzInstance?.id}">Add score message</g:link>
+
+          <g:actionSubmit class="btn btn-success" action="publish" id="${quizzInstance?.id}"
                           value="Publish"
                           onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
 
           <g:actionSubmit class="btn btn-dark" action="delete"
-                              value="${message(code: 'default.button.delete.label', default: 'Delete')}"
-                              onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
+                          value="${message(code: 'default.button.delete.label', default: 'Delete')}"
+                          onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');"/>
 
         </div>
       </fieldset>
