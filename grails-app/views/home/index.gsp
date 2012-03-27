@@ -12,9 +12,21 @@
             <g:render template="/commons/facebook-button"/>
         </div>
 
-        <div class="well" id="facebook-like" style="display: none;">
-            <div class="fb-like" data-href="<g:createLink controller="home" absolute="true"/>" data-send="false"
-                 data-layout="box_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+        <div id="facebook-like" style="display: none;">
+            <div class="well">
+                <div class="fb-like"
+                     data-href="<g:createLink controller="home" absolute="true"/>"
+                     data-send="false"
+                     data-width="200" data-show-faces="true"></div>
+
+            </div>
+
+            <div class="well">
+                <div class="fb-subscribe"
+                     data-href="<g:createLink controller="home" absolute="true"/>"
+                     data-show-faces="true"
+                     data-width="200"></div>
+            </div>
         </div>
 
     </div>

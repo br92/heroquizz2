@@ -8,8 +8,31 @@
 <body>
 <div class="row">
     <div class="span6 offset3 well">
+
         <form action="${postUrl}" method="POST" class="form-horizontal">
+
             <fieldset>
+                <div class="control-group">
+                    <label class="control-label">
+                        <h1>Connexion</h1>
+                    </label>
+
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <g:render template="/commons/facebook-button"/>
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <div class="controls">
+                        ou
+                    </div>
+                </div>
+
+
                 <div class="control-group">
                     <label for="username" class="control-label">
                         <g:message code="springSecurity.login.username.label"/> :

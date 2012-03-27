@@ -47,7 +47,7 @@
         <td><g:link action="show"
                     id="${quizzAnswerInstance.id}">${quizzAnswerInstance.originalQuizz.name}</g:link></td>
 
-        <td>${fieldValue(bean: quizzAnswerInstance, field: "owner")}</td>
+        <td>${quizzAnswerInstance?.owner.email  }</td>
 
         <td>${fieldValue(bean: quizzAnswerInstance, field: "score")}</td>
 

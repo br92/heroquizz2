@@ -3,7 +3,7 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="layout" content="main"><g:var meta
+		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'quizzAnswer.label', default: 'QuizzAnswer')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
@@ -52,11 +52,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${quizzAnswerInstance?.createdDate}">
+				<g:if test="${quizzAnswerInstance?.dateCreated}">
 				<li class="fieldcontain">
-					<span id="createdDate-label" class="property-label"><g:message code="quizzAnswer.createdDate.label" default="Created Date" /></span>
+					<span id="createdDate-label" class="property-label"><g:message code="quizzAnswer.dateCreated.label" default="Created Date" /></span>
 					
-						<span class="property-value" aria-labelledby="createdDate-label"><g:formatDate date="${quizzAnswerInstance?.createdDate}" /></span>
+						<span class="property-value" aria-labelledby="createdDate-label"><g:formatDate date="${quizzAnswerInstance?.dateCreated}" /></span>
 					
 				</li>
 				</g:if>

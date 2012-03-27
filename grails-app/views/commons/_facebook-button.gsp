@@ -36,5 +36,5 @@
     }(document));
 </script>
 
-<div class="fb-login-button" data-scope="email,publish_stream" data-show-faces="false"><g:message
+<div class="fb-login-button" data-scope="email,publish_stream" data-show-faces="true"><g:message
         code="facebook.connect.button"/></div>
