@@ -63,7 +63,7 @@ class BootStrap {
     def question1 = new Question(quizz: quizz, text: 'A quoi sert le mot clef synchronized ?',
         videoUrl: 'https://s3-eu-west-1.amazonaws.com/xebia-video/xebiaquizz/synchronized.flv').save(flush: true)
 
-    new Answer(text: 'Le code entouré par le mot clef synchronized ne peut pas être executé par plus d’un Thread à la fois', pointsNumber: 2, question: question1).save(flush: true)
+    new Answer(text: 'Le code entouré par le mot clef synchronized ne peut pas être executé par plus d’un Thread à la fois.', pointsNumber: 2, question: question1).save(flush: true)
     new Answer(text: 'Lorsque la valeur d’une variable synchronized change, toutes les variables y faisant référence sont mises à jour.', pointsNumber: -2, question: question1).save(flush: true)
     new Answer(text: 'Le mot clef synchronized permet d’indiquer à la JVM qu’elle doit rafraichir son cache à chaque mise à jour de la variable par un Thread.', pointsNumber: -1, question: question1).save(flush: true)
     new Answer(text: 'A rien, et il est d’ailleurs déprécié à partir de java 1.4.', pointsNumber: -4, question: question1).save(flush: true)
