@@ -235,9 +235,9 @@ class QuizzController {
       log.error('Problem posting link to facebook user timeline', e)
     }
 
-    ScoreMessage.findByMinimumLessThan(currentQuizzAnswer.score, [order: 'minimum', sort: 'asc'])
+    def winMessage = ScoreMessage.findByMinimumLessThan(currentQuizzAnswer.score, [order: 'minimum', sort: 'asc'])
 
-    [quizzAnswerInstance: currentQuizzAnswer]
+    [quizzAnswerInstance: currentQuizzAnswer, winMessage: winMessage]
   }
 
   def disclaimer() {}
