@@ -16,7 +16,7 @@
       'flashplayer': '${resource(dir: 'flash', file: 'player.swf')}',
       'id': 'playerID',
       'width': '470',
-      'autostart': false,
+      'autostart': true,
       'backgroundColor': 'transparent',
       'file': '${questionInstance.videoUrl}'
     });

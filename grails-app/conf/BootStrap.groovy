@@ -69,7 +69,7 @@ class BootStrap {
     new Answer(text: 'A rien, et il est d’ailleurs déprécié à partir de java 1.4.', pointsNumber: -4, question: question1).save(flush: true)
 
     def question2 = new Question(quizz: quizz, text: 'Pourquoi ne peut-on pas définir de méthode statique dans une interface ?',
-        videoUrl: 'https://s3-eu-west-1.amazonaws.com/xebia-video/xebiaquizz/static_ds_interface.flv').save(flush: true)
+        videoUrl: 'https://s3-eu-west-1.amazonaws.com/xebia-video/xebiaquizz/static_vs_interface.flv').save(flush: true)
 
     new Answer(text: 'Car il faudrait aussi que l’interface soit statique', pointsNumber: -3, question: question2).save(flush: true)
     new Answer(text: 'Car les classes ne peuvent pas avoir de méthode static avec la même signature qu\'une de leurs classes/interfaces parents.', pointsNumber: -1, question: question2).save(flush: true)
@@ -82,7 +82,7 @@ class BootStrap {
     new Answer(text: 'Les éléments de Set garde leur ordre de lecture.', pointsNumber: -1, question: question3).save(flush: true)
     new Answer(text: 'List est ThreadSafe et pas Set', pointsNumber: -1, question: question3).save(flush: true)
     new Answer(text: 'Chaque élément dans un Set est unique.', pointsNumber: -3, question: question3).save(flush: true)
-    new Answer(text: 'List implémente Listable .', pointsNumber: -3, question: question3).save(flush: true)
+    new Answer(text: 'List implémente Listable.', pointsNumber: -3, question: question3).save(flush: true)
 
     new ScoreMessage(message: """Excellent ! Java n'a pas de secret pour vous, vous maitrisez les serveurs d'application, et
     manipulez les technos et les frameworks web avec brio !
