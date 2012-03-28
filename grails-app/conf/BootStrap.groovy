@@ -6,6 +6,7 @@ import heroquizz.User
 import heroquizz.UserRole
 import grails.util.GrailsUtil
 import heroquizz.FacebookUser
+import heroquizz.ScoreMessage
 
 class BootStrap {
 
@@ -33,6 +34,7 @@ class BootStrap {
     def fbRole = 'ROLE_FACEBOOK'
     if (!Role.findByAuthority(fbRole)) {
       new Role(authority: fbRole).save(flush: true)
+      fillDemoQuizz()
     }
 
     def adminRole = 'ROLE_ADMIN'
@@ -52,5 +54,39 @@ class BootStrap {
   }
 
   def destroy = {
+  }
+
+  private void fillDemoQuizz() {
+
+    def quizz = new Quizz(name: 'Technique 1', description: 'Java, les bases, monitoring, performances, un peu de tout', published: true).save()
+
+    def question1 = new Question(quizz: quizz, text: 'A quoi sert le mot clef synchronized ?')
+    new Answer(text: 'Le code entouré par le mot clef synchronized ne peut pas être executé par plus d’un Thread à la fois', pointsNumber: 2, question: question1).save()
+    new Answer(text: 'Lorsque la valeur d’une variable synchronized change, toutes les variables y faisant référence sont mises à jour.', pointsNumber: -2, question: question1).save()
+    new Answer(text: 'Le mot clef synchronized permet d’indiquer à la JVM qu’elle doit rafraichir son cache à chaque mise à jour de la variable par un Thread.', pointsNumber: -1, question: question1).save()
+    new Answer(text: 'A rien, et il est d’ailleurs déprécié à partir de java 1.4.', pointsNumber: -4, question: question1).save()
+
+    def question2 = new Question(quizz: quizz, text: 'Pourquoi ne peut-on pas définir de méthode statique dans une interface ?')
+    new Answer(text: 'Car il faudrait aussi que l’interface soit statique', pointsNumber: -3, question: question2).save()
+    new Answer(text: 'Car les classes ne peuvent pas avoir de méthode static avec la même signature qu\'une de leurs classes/interfaces parents.', pointsNumber: -1, question: question2).save()
+    new Answer(text: 'Cela est un défaut de java qui sera corrigé dans Java 8.', pointsNumber: 31, question: question2).save()
+    new Answer(text: 'Car cela donnerait la possibilité d’appeler une méthode non implémentée depuis une interface', pointsNumber: 2, question: question2).save()
+
+
+    new ScoreMessage(message: """Excellent ! Java n'a pas de secret pour vous, vous maitrisez les serveurs d'application, et
+    manipulez les technos et les frameworks web avec brio !
+    Aucune problématique d'architecture ne vous résiste.""", minimum: 4, quizz: quizz).save()
+
+    new ScoreMessage(message: """Pas mal ! Votre niveau technique est satisfaisant, vous possédez les bases
+    nécessaires à un bon développement et une avez une bonne connaissance générale  de JEE.""", minimum: 2, quizz: quizz).save()
+
+    new ScoreMessage(message: """A améliorer ! Vous pouvez améliorer votre profondeur technique et vos
+    connaissances de l'écosystème JEE.""", minimum: -500, quizz: quizz).save()
+
+
+
+
+
+
   }
 }

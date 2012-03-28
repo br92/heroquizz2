@@ -8,9 +8,13 @@
   <div class="span8 offset2">
     <div class="hero-unit">
       <h1>Félicitations !</h1>
-<h3>Au questionnaire "${quizzAnswerInstance.originalQuizz.name}"</h3>
+
+      <h3>Au questionnaire "${quizzAnswerInstance.originalQuizz.name}"</h3>
+
       <p>Votre score final est de : ${quizzAnswerInstance.score} points.</p>
-        <p>${winMessage}</p>
+
+      <p>${winMessage.message}</p>
+
       <p><g:link controller="quizz">Tenter un autre questionnaire</g:link></p>
     </div>
   </div>
