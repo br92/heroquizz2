@@ -1,6 +1,6 @@
 <head>
   <meta name="layout" content="main">
-  <title><g:message code="default.show.label" args="[entityName]"/></title>
+  <title><g:message code="app.title"/> - <g:message code="app.gratz"/></title>
 </head>
 
 <body>
