@@ -1,0 +1,9 @@
+HeroQuizz
+---------
+
+- interface d'admin propre : quizz + Q&R
+- publication wall en fin de quizz
+- notifications nouveau quizz
+- admin -> quizz publié ou non
+- dashboard recruteur:
+ email - quizz faits + score associé - Nom&Prénom
