@@ -3,8 +3,8 @@
 </head>
 
 <body>
-<div class="hero-unit">
-  <h2>Conditions générales d'utilisation</h2>
+<div class="span12 ctxt">
+  <h1>Conditions générales d'utilisation</h1>
   <hr/>
   <p>
     Xebia se réserve le droit de contacter les participants ayant obtenu un score élevé pour savoir s'il sont intéressés
@@ -16,9 +16,9 @@
 
   <hr/>
 
-  <div class="row ctxt">
-    <g:link action="index">Retour</g:link>
-  </div>
+  <g:link class="btn btn-primary" action="index">
+    Retour
+  </g:link>
 
 </div>
 </body>
