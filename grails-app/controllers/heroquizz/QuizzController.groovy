@@ -196,8 +196,6 @@ class QuizzController {
 
     currentQuizzAnswer.save()
 
-    println "Score is now: ${currentQuizzAnswer.score}"
-
     redirect(action: 'take', id: params.quizzId)
   }
 

@@ -1,8 +1,13 @@
 /* FONT STACK */
 body {
-    padding-top: 60px;
+    padding-top: 140px;
+    background: #FAFAFA;
 }
 
+
+.whiteback {
+    background: #FFF;
+}
 footer {
     text-align: center;
 
@@ -18,4 +23,14 @@ footer {
 
 .rtxt {
     text-align: right;
+}
+
+.navbar-inner {
+    background: #712A66;
+    height: 110px;
+    border-bottom: 4px solid #48183E;
+}
+
+.navbar {
+
 }

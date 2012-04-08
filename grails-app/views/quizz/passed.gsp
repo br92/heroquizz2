@@ -5,18 +5,22 @@
 
 <body>
 <div class="row">
-  <div class="span8 offset2">
-    <div class="hero-unit">
-      <h1>Félicitations !</h1>
+  <div class="span8 offset2 ctxt">
 
-      <h3>Au questionnaire "${quizzAnswerInstance.originalQuizz.name}"</h3>
+      <h1>Félicitations ! Voici la ligne d'arrivée !</h1>
+    <hr/>
+      <h3>Au questionnaire "${quizzAnswerInstance.originalQuizz.name}"
 
-      <p>Votre score final est de : ${quizzAnswerInstance.score} points.</p>
+      Votre score final est de : ${quizzAnswerInstance.score} points.</h3>
 
-      <p>${winMessage.message}</p>
+    <hr/>
+      <h3>${winMessage.message}</h3>
+    <hr/>
+      <g:link class="btn btn-primary" controller="quizz" action="index">
+        Tenter un autre questionnaire
+      </g:link>
 
-      <p><g:link controller="quizz">Tenter un autre questionnaire</g:link></p>
-    </div>
+
   </div>
 </div>
 </body>

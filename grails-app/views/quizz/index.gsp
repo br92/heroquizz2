@@ -5,11 +5,11 @@
 
 <body>
 <div class="row">
-  <div class="span5 ctxt">
+  <div class="span5 ctxt well whiteback">
     <img src="${resource(dir: 'images', file: 'question.jpg')}"/>
   </div>
 
-  <div class="span5 well">
+  <div class="span5">
 
     <h1>Xebia Quizz</h1>
     <hr/>
@@ -27,8 +27,9 @@
       <ul>
         <g:each in="${Quizz.findByPublished(true)}" var="quizzInstance">
           <li>
-            <span><g:link action="take"
-                          id="${quizzInstance?.id}">${quizzInstance?.name?.encodeAsHTML()}</g:link></span>
+            <g:link action="take" id="${quizzInstance.id}">
+              ${quizzInstance?.name?.encodeAsHTML()}
+            </g:link>
           </li>
         </g:each>
 

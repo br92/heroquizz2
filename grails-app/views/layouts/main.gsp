@@ -21,7 +21,9 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <g:link class="brand" controller="home">Xebia Quizz</g:link>
+      <g:link class="brand" controller="home">
+        <img src="<g:resource dir="images" file="logo.png"/>"/>
+      </g:link>
 
       <div class="nav-collapse">
         <g:render template="/layouts/admin-menu"/>
@@ -32,6 +34,7 @@
     </div>
   </div>
 </div>
+
 
 <div class="container">
 

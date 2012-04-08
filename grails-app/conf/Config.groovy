@@ -116,7 +116,7 @@ grails.plugins.springsecurity.facebook.button.text = "Enter"
 environments {
   development {
     grails.plugins.springsecurity.facebook.appId = '327921343931669'
-    grails.plugins.springsecurity.facebook.secret = '9f9d9dc28df1831b8fadb04302da4f0a'
+    grails.plugins.springsecurity.facebook.secret = 'dc2dc8e93978454f1c212d3b661b4a2e'
   }
   production {
     grails.plugins.springsecurity.facebook.appId = '302026516518035'

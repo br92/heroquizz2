@@ -10,18 +10,8 @@
       oauth:true
     });
 
-    FB.Event.subscribe('auth.authResponseChange', function (response) {
+    FB.Event.subscribe('auth.login', function (response) {
       $('#facebook-connect').hide();
-      $('#facebook-like').show();
-    });
-
-    FB.getLoginStatus(function (response) {
-      if (response.status === 'connected') {
-        var uid = response.authResponse.userID;
-        var accessToken = response.authResponse.accessToken;
-        $('#facebook-connect').hide();
-        $('#facebook-like').show();
-      }
     });
   };
 

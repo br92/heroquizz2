@@ -8,23 +8,24 @@
 
     <div class="span3">
 
-        <div class="well" id="facebook-connect">
+        <div id="facebook-connect">
             <g:render template="/commons/facebook-button"/>
         </div>
 
-        <div id="facebook-like" style="display: none;">
-            <div class="well">
+      <hr/>
+        <div id="facebook-like">
+
                 <div class="fb-like"
                      data-href="<g:createLink controller="home" absolute="true"/>"
                      data-send="false"
                      data-width="200" data-show-faces="true"></div>
 
-            </div>
+
         </div>
 
     </div>
 
-    <div class="span8 well">
+    <div class="span8">
 
         <h1><g:message code="index.welcome"/></h1>
 
