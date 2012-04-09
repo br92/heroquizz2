@@ -21,7 +21,7 @@
 
                 <div class="control-group">
                     <div class="controls">
-                        <g:render template="/commons/facebook-button"/>
+                        <g:render template="/commons/facebook-button" model="[controller: 'quizz']"/>
                     </div>
                 </div>
 

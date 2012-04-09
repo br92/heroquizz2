@@ -142,11 +142,20 @@ class QuizzController {
     }
 
     FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
-    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
-
-    if (!currentQuizzAnswer) {
+    def currentQuizzAnswers = QuizzAnswer.findAllByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+    def currentQuizzAnswer
+    if (!currentQuizzAnswers) {
       currentQuizzAnswer = new QuizzAnswer(originalQuizz: theQuizz, score: 0, completed: false, owner: loggedUser).save()
       loggedUser.addToQuizzAnswers(currentQuizzAnswer).save()
+    } else {
+      currentQuizzAnswer = currentQuizzAnswers.find { !it.completed }
+      if (!currentQuizzAnswer) {
+        currentQuizzAnswer = new QuizzAnswer(originalQuizz: theQuizz, score: 0, completed: false, owner: loggedUser).save()
+        loggedUser.addToQuizzAnswers(currentQuizzAnswer).save()
+        println "creating new quizz answer"
+      } else {
+        println "filling quizzAnswer #${currentQuizzAnswer.id}"
+      }
     }
 
     def questionList = theQuizz.questions as List
@@ -173,11 +182,21 @@ class QuizzController {
     }
 
     FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
-    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
 
-    if (!currentQuizzAnswer) {
-      flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])
-      return redirect(action: 'index')
+    def currentQuizzAnswers = QuizzAnswer.findAllByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+    def currentQuizzAnswer
+    if (!currentQuizzAnswers) {
+      currentQuizzAnswer = new QuizzAnswer(originalQuizz: theQuizz, score: 0, completed: false, owner: loggedUser).save()
+      loggedUser.addToQuizzAnswers(currentQuizzAnswer).save()
+    } else {
+      currentQuizzAnswer = currentQuizzAnswers.find { !it.completed }
+      if (!currentQuizzAnswer) {
+        currentQuizzAnswer = new QuizzAnswer(originalQuizz: theQuizz, score: 0, completed: false, owner: loggedUser).save()
+        loggedUser.addToQuizzAnswers(currentQuizzAnswer).save()
+        println "creating new quizz answer"
+      } else {
+        println "filling quizzAnswer #${currentQuizzAnswer.id}"
+      }
     }
 
 
@@ -211,7 +230,7 @@ class QuizzController {
 
     FacebookUser loggedUser = FacebookUser.findByUser(springSecurityService.getPrincipal())
 
-    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz)
+    def currentQuizzAnswer = QuizzAnswer.findByOwnerAndOriginalQuizz(loggedUser, theQuizz, [sort: 'dateCreated', order: 'desc'])
 
     if (!currentQuizzAnswer) {
       flash.message = message(code: 'default.not.found.message', args: [message(code: 'quizz.label', default: 'Quizz'), params.quizzId])

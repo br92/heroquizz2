@@ -11,6 +11,9 @@
     });
 
     FB.Event.subscribe('auth.login', function (response) {
+      <g:if test="${controller}">
+      window.location.href = '<g:createLink controller="${controller}"/>';
+      </g:if>
       $('#facebook-connect').hide();
     });
   };
