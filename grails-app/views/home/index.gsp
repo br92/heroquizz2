@@ -27,7 +27,7 @@
 
     <div class="span8">
 
-        <h1>Hello Cloud Force! <g:message code="index.welcome"/></h1>
+        <h1><g:message code="index.welcome"/></h1>
 
         <hr/>
 
