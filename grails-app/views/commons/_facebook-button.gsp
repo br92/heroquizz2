@@ -4,6 +4,7 @@
   window.fbAsyncInit = function () {
     FB.init({
       appId:'${grailsApplication.config.grails.plugins.springsecurity.facebook.appId}',
+      channelUrl : '${resource(file:"/channel.html", absolute:"true")}',
       status:true,
       cookie:true,
       xfbml:true,
@@ -18,19 +19,14 @@
     });
   };
 
-  (function (d) {
-    var js, id = 'facebook-jssdk';
-    if (d.getElementById(id)) {
-      return;
-    }
-    js = d.createElement('script');
-    js.id = id;
-    js.async = true;
-    js.src = "//connect.facebook.net/en_US/all.js";
-    d.getElementsByTagName('head')[0].appendChild(js);
-  }(document));
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=<%= grailsApplication.config.grails.plugins.springsecurity.facebook.appId %>";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div class="fb-login-button" data-scope="email,publish_stream" data-show-faces="true">
-  <g:message code="facebook.connect.button"/>
-</div>
+<div class="fb-login-button" data-show-faces="true" data-width="200" data-max-rows="2"></div>

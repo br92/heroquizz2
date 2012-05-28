@@ -8,7 +8,7 @@ class FacebookAuthService {
 
   void onCreate(FacebookUser user, FacebookAuthToken token) {
 
-    FacebookTemplate facebook = new FacebookTemplate(token.accessToken)
+    FacebookTemplate facebook = new FacebookTemplate(token.accessToken.accessToken)
     FacebookProfile fbProfile = facebook.userOperations().userProfile
 
     user.email = fbProfile.getEmail()

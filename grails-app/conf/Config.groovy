@@ -99,15 +99,26 @@ grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'heroquizz.Use
 grails.plugins.springsecurity.authority.className = 'heroquizz.Role'
 
 environments {
+  development {
+    grails.plugins.springsecurity.portMapper.httpPort = 8080
+    grails.plugins.springsecurity.portMapper.httpsPort = 8443
+  }
+  test {
+    grails.plugins.springsecurity.portMapper.httpPort = 8080
+    grails.plugins.springsecurity.portMapper.httpsPort = 8443
+  }
   production {
     grails.plugins.springsecurity.portMapper.httpPort = 80
     grails.plugins.springsecurity.portMapper.httpsPort = 443
-    grails.plugins.springsecurity.secureChannel.definition = [
-        '/**': 'REQUIRES_SECURE_CHANNEL'
-    ]
-    grails.plugins.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
+
   }
 }
+
+grails.plugins.springsecurity.secureChannel.definition = [
+    '/**': 'REQUIRES_SECURE_CHANNEL',
+    '/': 'REQUIRES_SECURE_CHANNEL'
+]
+grails.plugins.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
 
 // Spring Security Facebook plugin:
 grails.plugins.springsecurity.facebook.domain.classname = 'heroquizz.FacebookUser'
@@ -116,7 +127,7 @@ grails.plugins.springsecurity.facebook.button.text = "Enter"
 environments {
   development {
     grails.plugins.springsecurity.facebook.appId = '327921343931669'
-    grails.plugins.springsecurity.facebook.secret = 'dc2dc8e93978454f1c212d3b661b4a2e'
+    grails.plugins.springsecurity.facebook.secret = '6f171759f0e50ae1e7257ef3ce63c3ad'
   }
   production {
     grails.plugins.springsecurity.facebook.appId = '302026516518035'

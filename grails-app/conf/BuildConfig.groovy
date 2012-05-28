@@ -4,6 +4,15 @@ grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
+
+
+println "=============> "+basedir
+
+environments {
+  development {
+    javax.net.ssl.trustStore = basedir + '/keystore.jks'
+  }
+}
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 grails.project.dependency.resolution = {
@@ -33,6 +42,12 @@ grails.project.dependency.resolution = {
 
     runtime ":jquery:1.7.1"
     runtime ":resources:1.1.6"
+
+    runtime ':heroku:1.0'
+    runtime ':spring-security-core:1.2.7.3'
+    runtime ':spring-security-facebook:0.8'
+    runtime ':twitter-bootstrap:2.0.1.22'
+    runtime ':webxml:1.4.1'
 
     /*runtime ":zipped-resources:1.0"
     runtime ":cached-resources:1.0"

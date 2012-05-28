@@ -34,3 +34,7 @@ footer {
 .navbar {
 
 }
+
+#fb-root {
+    display: none;
+}
