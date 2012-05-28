@@ -10,11 +10,6 @@ class ScoreMessageController {
     redirect(action: "list", params: params)
   }
 
-  def list() {
-    params.max = Math.min(params.max ? params.int('max') : 10, 100)
-    [scoreMessageInstanceList: ScoreMessage.list(params), scoreMessageInstanceTotal: ScoreMessage.count()]
-  }
-
   def create() {
     [scoreMessageInstance: new ScoreMessage(params), quizzId: params.id]
   }

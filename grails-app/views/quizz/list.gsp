@@ -15,39 +15,41 @@
 
 <div class="row">
   <div class="span12">
-  <legend><g:message code="default.list.label" args="[entityName]"/></legend>
-  <g:if test="${flash.message}">
-    <div class="message" role="status">${flash.message}</div>
-  </g:if>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
 
-      <g:sortableColumn property="name" title="${message(code: 'quizz.name.label', default: 'Name')}"/>
+    <legend><g:message code="default.list.label" args="[entityName]"/></legend>
 
-      <g:sortableColumn property="description"
-                        title="${message(code: 'quizz.description.label', default: 'Description')}"/>
+    <g:if test="${flash.message}">
+      <div class="label label-info" role="status">${flash.message}</div>
+    </g:if>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
 
-    </tr>
-    </thead>
-    <tbody>
-    <g:each in="${quizzInstanceList}" status="i" var="quizzInstance">
-      <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+        <g:sortableColumn property="name" title="${message(code: 'quizz.name.label', default: 'Name')}"/>
 
-        <td><g:link action="show"
-                    id="${quizzInstance.id}">${fieldValue(bean: quizzInstance, field: "name")}</g:link></td>
-
-        <td>${fieldValue(bean: quizzInstance, field: "description")}</td>
+        <g:sortableColumn property="description"
+                          title="${message(code: 'quizz.description.label', default: 'Description')}"/>
 
       </tr>
-    </g:each>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+      <g:each in="${quizzInstanceList}" status="i" var="quizzInstance">
+        <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
-  <div class="pagination">
-    <g:paginate total="${quizzInstanceTotal}"/>
+          <td><g:link action="show"
+                      id="${quizzInstance.id}">${fieldValue(bean: quizzInstance, field: "name")}</g:link></td>
+
+          <td>${fieldValue(bean: quizzInstance, field: "description")}</td>
+
+        </tr>
+      </g:each>
+      </tbody>
+    </table>
+
+    <div class="pagination">
+      <g:paginate total="${quizzInstanceTotal}"/>
+    </div>
   </div>
-</div>
 </div>
 </body>
 </html>

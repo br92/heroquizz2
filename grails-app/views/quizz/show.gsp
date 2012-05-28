@@ -21,58 +21,63 @@
     <g:if test="${flash.message}">
       <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <ol class="property-list quizz">
+    <dl class="dl-horizontal quizz">
 
       <g:if test="${quizzInstance?.name}">
-        <li class="fieldcontain">
+        <dt>
           <span id="name-label" class="property-label"><g:message code="quizz.name.label" default="Name"/></span>
-
-          <span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${quizzInstance}"
-                                                                                  field="name"/></span>
-
-        </li>
+        </dt>
+        <dd>
+          <span class="property-value" aria-labelledby="name-label">
+            <g:fieldValue bean="${quizzInstance}" field="name"/>
+          </span>
+        </dd>
       </g:if>
 
       <g:if test="${quizzInstance?.description}">
-        <li class="fieldcontain">
+        <dt>
           <span id="description-label" class="property-label"><g:message code="quizz.description.label"
                                                                          default="Description"/></span>
-
+        </dt>
+        <dd>
           <span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${quizzInstance}"
                                                                                          field="description"/></span>
-
+        </dd>
         </li>
       </g:if>
 
       <g:if test="${quizzInstance?.questions}">
-        <li class="fieldcontain">
+        <dt>
           <span id="questions-label" class="property-label"><g:message code="quizz.questions.label"
                                                                        default="Questions"/></span>
-
-          <ul>
+        </dt>
+        <dd>
+          <ol>
             <g:each in="${quizzInstance.questions}" var="q">
               <li><g:link controller="question" action="show" id="${q.id}">${q?.text?.encodeAsHTML()}</g:link></li>
             </g:each>
-          </ul>
+          </ol>
 
-        </li>
+        </dd>
       </g:if>
 
       <g:if test="${quizzInstance?.scoreMessages}">
-        <li class="fieldcontain">
+        <dt>
           <span id="scores-label" class="property-label"><g:message code="quizz.scores.label"
                                                                     default="Score messages"/></span>
-
+        </dt>
+        <dd>
           <ul>
             <g:each in="${quizzInstance.scoreMessages}" var="q">
-              <li><g:link controller="scoreMessage" action="show" id="${q.id}">${q?.message?.encodeAsHTML()}</g:link></li>
+              <li><g:link controller="scoreMessage" action="show"
+                          id="${q.id}">${q?.message?.encodeAsHTML()}</g:link></li>
             </g:each>
           </ul>
 
-        </li>
+        </dd>
       </g:if>
 
-    </ol>
+    </dl>
     <g:form>
       <fieldset>
         <g:hiddenField name="id" value="${quizzInstance?.id}"/>

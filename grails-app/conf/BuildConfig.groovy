@@ -38,7 +38,7 @@ grails.project.dependency.resolution = {
     runtime ':heroku:1.0'
     runtime ':spring-security-core:1.2.7.3'
     runtime ':spring-security-facebook:0.8'
-    runtime ':twitter-bootstrap:2.0.1.22'
+    runtime ':twitter-bootstrap:2.0.2.25'
     runtime ':webxml:1.4.1'
 
     /*runtime ":zipped-resources:1.0"
