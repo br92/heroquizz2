@@ -15,7 +15,7 @@ class FacebookAuthService {
     user.firstName = fbProfile.getFirstName()
     user.lastName = fbProfile.getLastName()
 
-    user.accessToken = token.accessToken
+    user.accessToken = token.accessToken.accessToken
 
   }
 

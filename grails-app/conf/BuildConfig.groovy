@@ -5,14 +5,6 @@ grails.project.test.reports.dir = "target/test-reports"
 grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 
-
-println "=============> "+basedir
-
-environments {
-  development {
-    javax.net.ssl.trustStore = basedir + '/keystore.jks'
-  }
-}
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
 grails.project.dependency.resolution = {
